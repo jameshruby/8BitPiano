@@ -1,0 +1,41 @@
+D:\GitHub\Csharp\mvcmt\mvcmt\bin\Debug\mvcmt.exe.config
+D:\GitHub\Csharp\mvcmt\mvcmt\bin\Debug\mvcmt.exe
+D:\GitHub\Csharp\mvcmt\mvcmt\bin\Debug\mvcmt.pdb
+D:\GitHub\Csharp\mvcmt\mvcmt\obj\Debug\mvcmt.TTest.resources
+D:\GitHub\Csharp\mvcmt\mvcmt\obj\Debug\mvcmt.View.resources
+D:\GitHub\Csharp\mvcmt\mvcmt\obj\Debug\8bit8KeyPiano.csproj.GenerateResource.Cache
+D:\GitHub\Csharp\mvcmt\mvcmt\obj\Debug\mvcmt.exe
+D:\GitHub\Csharp\mvcmt\mvcmt\obj\Debug\mvcmt.pdb
+D:\GitHub\Csharp\mvcmt\mvcmt\obj\Debug\8bit8KeyPiano.csprojResolveAssemblyReference.cache
+D:\Nová složka\mvcmt\mvcmt\bin\Debug\mvcmt.exe.config
+D:\Nová složka\mvcmt\mvcmt\obj\Debug\mvcmt.exe
+D:\Nová složka\mvcmt\mvcmt\obj\Debug\mvcmt.pdb
+D:\Nová složka\mvcmt\mvcmt\obj\Debug\ResolveAssemblyReference.cache
+D:\Nová složka\mvcmt\mvcmt\obj\Debug\mvcmt.TTest.resources
+D:\Nová složka\mvcmt\mvcmt\obj\Debug\mvcmt.View.resources
+D:\Nová složka\mvcmt\mvcmt\obj\Debug\GenerateResource.read.1.tlog
+D:\Nová složka\mvcmt\mvcmt\obj\Debug\GenerateResource.write.1.tlog
+D:\Nová složka\mvcmt\mvcmt\bin\Debug\mvcmt.exe
+D:\Nová složka\mvcmt\mvcmt\bin\Debug\mvcmt.pdb
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\obj\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\obj\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\bin\Debug\8BitPiano.exe.config
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\bin\Debug\8BitPiano.exe
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\bin\Debug\8BitPiano.pdb
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\obj\Debug\Bit8Piano.TTest.resources
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\obj\Debug\Bit8Piano.View.resources
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\obj\Debug\8BitPiano.exe
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\obj\Debug\8BitPiano.pdb
+C:\Documents and Settings\Administrator.COMPUTER_1\Desktop\mvcmt\mvcmt\bin\Debug\NAudio.dll
+C:\Github\Bit8Piano\mvcmt\bin\Debug\8BitPiano.exe.config
+C:\Github\Bit8Piano\mvcmt\obj\Debug\8BitPiano.exe
+C:\Github\Bit8Piano\mvcmt\obj\Debug\8BitPiano.pdb
+C:\Github\Bit8Piano\mvcmt\bin\Debug\8BitPiano.exe
+C:\Github\Bit8Piano\mvcmt\bin\Debug\8BitPiano.pdb
+C:\Github\Bit8Piano\mvcmt\bin\Debug\NAudio.dll
+C:\Github\Bit8Piano\mvcmt\obj\Debug\ResolveAssemblyReference.cache
+C:\Github\Bit8Piano\mvcmt\obj\Debug\Bit8Piano.TTest.resources
+C:\Github\Bit8Piano\mvcmt\obj\Debug\Bit8Piano.View.resources
+C:\Github\Bit8Piano\mvcmt\obj\Debug\GenerateResource.read.1.tlog
+C:\Github\Bit8Piano\mvcmt\obj\Debug\GenerateResource.write.1.tlog
