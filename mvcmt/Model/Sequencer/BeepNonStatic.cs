@@ -14,7 +14,9 @@ namespace Bit8Piano
         //private SoundPlayer SP = new SoundPlayer();
         private SoundPlayer SP;
         private BinaryWriter BW;
-        private MemoryStream MS;
+        private MemoryStream memoryStream;
+
+        private List<byte> byteArray = new List<byte>();
 
         private double deltaFT;
 
@@ -51,8 +53,7 @@ namespace Bit8Piano
 
             SetStreamToTheBegining();
 
-
-            System.IO.File.WriteAllBytes("tone.wav", MS.ToArray());
+            System.IO.File.WriteAllBytes("tone.wav", memoryStream.ToArray());
 
             SetSoundPlayerStream();
 
@@ -64,12 +65,12 @@ namespace Bit8Piano
 
         private void SetSoundPlayerStream()
         {
-            SP.Stream = MS;
+            SP.Stream = memoryStream;
         }
 
         private void SetStreamToTheBegining()
         {
-            MS.Seek(0, SeekOrigin.Begin);
+            memoryStream.Seek(0, SeekOrigin.Begin);
         }
 
         private void PlaySoundPlayer()
@@ -84,7 +85,6 @@ namespace Bit8Piano
                 return ((VOLUME_AMOUNT * (System.Math.Pow(2, 15))) / 100) - 1;
             }
         }
-
 
         private double GetDeltaFT(double frequency)
         {
@@ -105,11 +105,9 @@ namespace Bit8Piano
 
             this.deltaFT = GetDeltaFT(frequency);
 
-            int Samples = (int)(441.0 * Duration / 10.0);
-            int Bytes = Samples * sizeof(int);
+            int Samples = GetSamples(Duration);
 
-            MS = new MemoryStream(44 + Bytes);
-            BW = new BinaryWriter(MS);
+            int Bytes = PrepareStreamWithSamples(Samples);
 
             WriteWavHeaderToStream(Bytes);
 
@@ -152,6 +150,22 @@ namespace Bit8Piano
             var cyclesCount = attackPhase - (currentT);
             var cyclesDecrement = Amplitude / attackDuration;
 
+            // IIterator iterator =
+            
+            ///!!!! ANY CHANGE TO THE FOR LOOP CHANGES AMPLITUDE TOO !!!
+            for (int T = 0; T < Samples; T++)
+            {
+                short Sample = GetSamples(amplitude, T);
+                
+                byte[] tempByteArray = BitConverter.GetBytes(Sample);
+
+                byteArray.AddRange(tempByteArray);
+                byteArray.AddRange(tempByteArray);
+            }
+
+            BW.Write(byteArray.ToArray());
+
+            
             TraverseSamplesFromToAndAddToneToStream(samplesStart, attackPhase, 0.0, cyclesDecrement);
             //for next phase, all i need is value of T(which is same as nextPhase)
 
@@ -172,53 +186,26 @@ namespace Bit8Piano
             cyclesDecrement = (sustainFinalStrength - releaseFinalStrength) / cyclesCount;
 
             TraverseSamplesFromToAndAddToneToStream(sustainPhase, releasePhase, sustainFinalStrength, -cyclesDecrement);
-
-
-            //for (int T = 0; T < Samples; ++T)
-            //{
-            //    if (T < attackDuration)
-            //    {
-            //        minSound += cyclesDecrement;
-            //        workingAmplitude = minSound;
-            //        //Debug.Assert((int)amplitude == ((int)tempAmp - 1), "amplitude should be at max point now");
-
-
-            //        //currentT = T;
-            //        //cyclesCount = decayPhase - (currentT);
-            //        //cyclesDecrement = (minSound - decayFinalStrength) / cyclesCount;
-            //    }
-
-            //    else if (T >= attackPhase && T <= decayPhase)
-            //    {
-            //        minSound -= cyclesDecrement;
-
-            //        //double samplesDiff = T / decayDuration; //tempAmp /  + decayPhase; //(attackPhase + decayPhase)
-
-            //        workingAmplitude = minSound;
-
-
-            //        //sectionT = T;
-            //        //cyclesCount = decayPhase - (sectionT);
-            //        //cyclesDecrement = (minSound - sustainFinalStrength) / cyclesCount;
-            //    }
-            //    else if (T >= decayPhase && T < sustainPhase)
-            //    {
-            //        double samplesDiff = amplitude / sustainPhase;
-
-            //        workingAmplitude = minSound;
-            //        minSound -= samplesDiff;
-            //    }
-
-            //    else
-            //    {
-            //        //if (amplitude >= 0)
-            //        //    amplitude--;
-            //        workingAmplitude = workingAmplitude;
-            //    }
-
-            //    WriteActualToneToWriter(workingAmplitude, T);
-            //}
+            
             BW.Flush();
+        }
+
+        private short GetSamples(double amplitude, int T)
+        {
+            return System.Convert.ToInt16(amplitude * Math.Sin(this.deltaFT * T));
+        }
+
+        private static int GetSamples(double Duration)
+        {
+            return (int)(441.0 * Duration / 10.0);
+        }
+
+        private int PrepareStreamWithSamples(int Samples)
+        {
+            int Bytes = Samples * sizeof(int);
+            memoryStream = new MemoryStream(44 + Bytes);
+            BW = new BinaryWriter(memoryStream);
+            return Bytes;
         }
 
         private void TraverseSamplesFromToAndAddToneToStream(double samplesStart, double samplesEnd, double minSound, double amplitudeChangeSteps)
@@ -237,7 +224,7 @@ namespace Bit8Piano
         {
             short Sample = System.Convert.ToInt16(amplitude * Math.Sin(this.deltaFT * T));
             
-            BW.Write(Sample);
+            //BW.Write(Sample);
             BW.Write(Sample);
         }
 

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IteratorPatternGof
+namespace Bit8Piano
 {
-    class ConcreteCollection : ICollection
+    class SamplesCollection : ICollection
     {
         private List<string> values;
 
-        public ConcreteCollection()
+        public SamplesCollection()
         {
             values = new List<string>();
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 
-namespace Bit8Piano.Model.Sequencer
+namespace Bit8Piano
 {
     class IteratorSample : IEnumerable
     {

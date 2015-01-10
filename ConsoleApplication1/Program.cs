@@ -10,7 +10,7 @@ namespace IteratorPatternGof
         static void Main(string[] args)
         {
             ConcreteCollection collection = new ConcreteCollection();
-
+   
             collection[0] = "1";
             collection[1] = "2";
             collection[2] = "3";

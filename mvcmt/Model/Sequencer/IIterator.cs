@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 
-namespace IteratorPatternGof
+namespace Bit8Piano
 {
     interface IIterator
     {
