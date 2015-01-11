@@ -7,11 +7,11 @@ namespace Bit8Piano
 {
     class SamplesCollection : ICollection
     {
-        private List<string> values;
+        private int[] values;
 
-        public SamplesCollection()
+        public SamplesCollection(int size)
         {
-            values = new List<string>();
+            values = new int[size];
         }
 
         public IIterator GetEnumerator()
@@ -19,13 +19,23 @@ namespace Bit8Piano
             return new ConcreteIterator(this);
         }
 
+       
+        public int Count
+        {
+            get
+            {
+                return values.Length;
+            }
+        }
+
+
         public string this[int itemIndex]
         {
             get
             {
-                if (itemIndex < values.Count)
+                if (itemIndex < values.Length)
                 {
-                    return values[itemIndex];
+                    return values[itemIndex].ToString();
                 }
                 else
                 {
@@ -34,15 +44,7 @@ namespace Bit8Piano
             }
             set
             {
-                values.Add(value);
-            }
-        }
-
-        public int Count
-        {
-            get
-            {
-                return values.Count;
+                values[itemIndex] = Int32.Parse(value);
             }
         }
     }
