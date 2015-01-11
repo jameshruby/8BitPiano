@@ -14,37 +14,39 @@ namespace Bit8Piano
             this.collection = aggregate;
         }
         
-        public string FirstItem
+        public int FirstItem
         {
             get {
                 currentIndex = 0;
-                return collection[currentIndex];
+                return Int32.Parse(collection[currentIndex]);
             }
         }
 
-        public string NextItem
+        public int NextItem
         {
             get {
                 currentIndex += 1;
 
                 if (IsDone == false)
                 {
-                    return collection[currentIndex];
+                    return Int32.Parse(collection[currentIndex]);
                 }
                 else
                 {
-                    return string.Empty; 
+                    return 0; 
                 }
             }
         }
 
-        public string CurrentItem
+        public int CurrentItem
         {
             get
             {
-                return collection[currentIndex];
+                return Int32.Parse(collection[currentIndex]);
             }
         }
+
+        public int CurrentIndex { get{ return currentIndex; }}
 
         public bool IsDone
         {

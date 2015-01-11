@@ -8,9 +8,10 @@ namespace Bit8Piano
 {
     interface IIterator
     {
-        string FirstItem { get; }
-        string NextItem { get; }
-        string CurrentItem { get; }
+        int FirstItem { get; }
+        int NextItem { get; }
+        int CurrentItem { get; }
+        int CurrentIndex { get; }
         bool IsDone { get; }
     }
 }

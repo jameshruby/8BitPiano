@@ -18,11 +18,11 @@ namespace Bit8Piano
         private string firstName;
 
         public event Action OnPropertyChange;
-        private BeepThreadingOriginal tonePlay;
+        private BeepNonStatic tonePlay;
 
         private void StartMonitoringChanges()
         {
-            tonePlay = new BeepThreadingOriginal();
+            tonePlay = new BeepNonStatic();
 
             while (true)
             {
@@ -54,7 +54,7 @@ namespace Bit8Piano
 
         public BeatModel()
         {
-            tonePlay = new BeepThreadingOriginal();
+            tonePlay = new BeepNonStatic();
             //MonitorChanges();
         }
 
