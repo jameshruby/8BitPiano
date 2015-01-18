@@ -11,6 +11,7 @@ namespace Bit8Piano
         int FirstItem { get; }
         int NextItem { get; }
         int CurrentItem { get; }
+        int IteratorStep { get; set; }
         int CurrentIndex { get; }
         bool IsDone { get; }
     }

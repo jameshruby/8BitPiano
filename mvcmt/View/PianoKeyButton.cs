@@ -11,8 +11,8 @@ namespace Bit8Piano
     {
         private static int UniqueTabIndex = 1;
 
-        private static int positionX = 8;
-        private static int positionY = 8;
+        private static int positionX = 28;
+        private static int positionY = 28;
 
         private const int margin = 6;
 
@@ -33,9 +33,9 @@ namespace Bit8Piano
         {
             this.BackColor = System.Drawing.Color.White;
             this.FlatAppearance.BorderSize = 0;
+            this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FlatAppearance.MouseDownBackColor = System.Drawing.Color.GreenYellow;
             this.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
-            this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Location = new System.Drawing.Point(positionX, positionY);
             this.Size = new System.Drawing.Size(width, height);
             this.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

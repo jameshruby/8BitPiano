@@ -9,14 +9,19 @@ namespace Bit8Piano
     {
         private ICollection collection;
         private int currentIndex;
+        private int iteratorStep;
+
+        public int IteratorStep { get { return iteratorStep; } set { iteratorStep = value; } }
+
         public ConcreteIterator(ICollection aggregate)
         {
             this.collection = aggregate;
         }
-        
+
         public int FirstItem
         {
-            get {
+            get
+            {
                 currentIndex = 0;
                 return Int32.Parse(collection[currentIndex]);
             }
@@ -24,8 +29,9 @@ namespace Bit8Piano
 
         public int NextItem
         {
-            get {
-                currentIndex += 1;
+            get
+            {
+                currentIndex += iteratorStep;
 
                 if (IsDone == false)
                 {
@@ -33,7 +39,7 @@ namespace Bit8Piano
                 }
                 else
                 {
-                    return 0; 
+                    return 0;
                 }
             }
         }
@@ -46,13 +52,13 @@ namespace Bit8Piano
             }
         }
 
-        public int CurrentIndex { get{ return currentIndex; }}
+        public int CurrentIndex { get { return currentIndex; } }
 
         public bool IsDone
         {
             get
             {
-                if (currentIndex < collection.Count)
+                if (currentIndex < collection.Count || currentIndex >= 0)
                     return false;
                 return true;
             }

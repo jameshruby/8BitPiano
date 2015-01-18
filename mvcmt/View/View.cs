@@ -15,7 +15,7 @@ namespace Bit8Piano
         private string[] KeysControlingPiano = new string[8] { "a", "s", "d", "f", "g", "h", "j", "k" };
 
         private string[] ButtonKeysText = new string[] { "C", "D", "E", "F", "G", "A", "H", "C" };
-        
+
         private int i = 0;
 
         private IBeatModel beatModel;
@@ -35,11 +35,14 @@ namespace Bit8Piano
         /// </summary>
         private System.ComponentModel.IContainer components = null;
         private ContextMenuStrip contextMenuStrip1;
- 
+
         //private TimerkeyDownTimer ;
         //private Control[] pianoKeysButtons = new Control[]{}; 
         private List<Control> pianoKeysButtons = new List<Control>();
-        
+        private bool keyDownOnce = true;
+        private Button exitButton;
+        private Panel results;
+
         #endregion
 
         #region Private methods
@@ -60,14 +63,44 @@ namespace Bit8Piano
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-           
+
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SuspendLayout();
 
             //foreach (var buttonKeyText in ButtonKeysText)
             //{
-                
+
             //}
+            // 
+            // View
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.MediumOrchid;
+            this.ClientSize = new System.Drawing.Size(588, 328);
+
+
+
+            this.exitButton = new Button();
+            this.exitButton.BackColor = System.Drawing.Color.DarkOrchid;
+            //this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Plum;
+            //this.exitButton.FlatAppearance.BorderSize = 1;
+            this.exitButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
+            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.exitButton.Width = 42;
+            this.exitButton.Height = 22;
+            this.exitButton.Image = System.Drawing.Bitmap.FromFile(@"C:\Github\Bit8Piano\mvcmt\Resources\icon2.gif");
+       
+            this.exitButton.Location = new System.Drawing.Point(this.Width-(this.exitButton.Width+8), 0);
+            this.exitButton.Click += new EventHandler(button0_Click);
+
+
+            //this.settingsButton = new Button();
+            //this.exitButton.Width = 41;
+            //this.exitButton.Width = 41;
+            //this.exitButton.Location = new System.Drawing.Point(this.Width - this.exitButton.Width, 0);
+            //this.exitButton.Click += new EventHandler(button0_Click);
+
 
             this.button1 = new Bit8Piano.PianoKeyButton("C");
             this.button2 = new Bit8Piano.PianoKeyButton("D");
@@ -80,19 +113,19 @@ namespace Bit8Piano
 
             this.button1.MouseDown += button_Click;
             this.button1.MouseUp += button_Up;
-          
+
             this.button2.MouseDown += button_Click;
             this.button2.MouseUp += button_Up;
 
             this.button3.MouseDown += button_Click;
             this.button3.MouseUp += button_Up;
-   
+
             this.button4.MouseDown += button_Click;
             this.button4.MouseUp += button_Up;
-       
+
             this.button5.MouseDown += button_Click;
             this.button5.MouseUp += button_Up;
-          
+
             this.button6.MouseDown += button_Click;
             this.button6.MouseUp += button_Up;
 
@@ -101,13 +134,8 @@ namespace Bit8Piano
 
             this.button8.MouseDown += button_Click;
             this.button8.MouseUp += button_Up;
-           
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            
+
+        
             this.pianoKeysButtons.Add(this.button1);
             this.pianoKeysButtons.Add(this.button2);
             this.pianoKeysButtons.Add(this.button3);
@@ -117,14 +145,13 @@ namespace Bit8Piano
             this.pianoKeysButtons.Add(this.button7);
             this.pianoKeysButtons.Add(this.button8);
 
-
-            // 
-            // View
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.MediumOrchid;
-            this.ClientSize = new System.Drawing.Size(548, 294);
+            // results = new Panel();
+            //results.Width = 40;
+            //results.Height = 50;
+            //results.Visible = true;
+           
+            this.Controls.Add(this.exitButton);
+            //this.Controls.Add(this.results);
             this.Controls.AddRange(pianoKeysButtons.ToArray<Control>());
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
@@ -135,8 +162,19 @@ namespace Bit8Piano
             this.ResumeLayout(false);
             this.PerformLayout();
             this.KeyDown += View_KeyDown;
+            //this.KeyPress += new KeyPressEventHandler(View_KeyPress);
             this.KeyUp += View_KeyUp;
 
+        }
+
+        void button0_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        void View_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void button_Up(object sender, MouseEventArgs e)
@@ -144,10 +182,6 @@ namespace Bit8Piano
             beatController.Stop();
         }
 
-        void button1_MouseDown(object sender, MouseEventArgs e)
-        {
-            this.button1.Text = i++.ToString();
-        }
 
         void button_Click(object sender, EventArgs e)
         {
@@ -157,8 +191,8 @@ namespace Bit8Piano
             {
                 if (Object.ReferenceEquals(sender, pianoKeyButton))
                 {
-                   Button f = (Button)pianoKeyButton;
-                   beatController.PerformActionWithStrategy(f.TabIndex);
+                    Button f = (Button)pianoKeyButton;
+                    beatController.PerformActionWithStrategy(f.TabIndex);
                 }
             }
 
@@ -166,7 +200,7 @@ namespace Bit8Piano
             //Thread.Sleep(1000);
         }
 
-       private KeyboardButton UsedKeysActivationStrategy(int customIndex)
+        private KeyboardButton UsedKeysActivationStrategy(int customIndex)
         {
             KeyboardButton buttonActivatedByKey;
 
@@ -197,37 +231,45 @@ namespace Bit8Piano
                     buttonActivatedByKey = this.button8;
                     break;
                 default:
-                    throw new NotSupportedException("Theres no button assigned for this key"); 
+                    throw new NotSupportedException("Theres no button assigned for this key");
             }
             return buttonActivatedByKey;
         }
 
         void View_KeyDown(object sender, KeyEventArgs e)
         {
-            //should call c++ function for getting physical keyboard layout, in order to keep it working at any possible keyboard
-            if (KeysControlingPiano.Contains(e.KeyCode.ToString().ToLower()))
+            if (this.keyDownOnce == true)
             {
-                var customIndex = Array.IndexOf(KeysControlingPiano, e.KeyCode.ToString().ToLower());
 
-                var actualButtonForKey = UsedKeysActivationStrategy(customIndex);
-                actualButtonForKey.PerformKeyDown();
+                //should call c++ function for getting physical keyboard layout, in order to keep it working at any possible keyboard
+                if (KeysControlingPiano.Contains(e.KeyCode.ToString().ToLower()))
+                {
+                    var customIndex = Array.IndexOf(KeysControlingPiano, e.KeyCode.ToString().ToLower());
+
+                    var actualButtonForKey = UsedKeysActivationStrategy(customIndex);
+                    actualButtonForKey.PerformKeyDown();
+                }
+                ///  this.KeyDown -= View_KeyDown;
+                this.keyDownOnce = false;
             }
         }
 
         void View_KeyUp(object sender, KeyEventArgs e)
         {
+            this.keyDownOnce = true;
+
             if (KeysControlingPiano.Contains(e.KeyCode.ToString().ToLower()))
             {
                 var customIndex = Array.IndexOf(KeysControlingPiano, e.KeyCode.ToString().ToLower());
-                
+
                 var actualButtonForKey = UsedKeysActivationStrategy(customIndex);
                 actualButtonForKey.PerformKeyUp();
             }
-        } 
-        
+        }
+
         #endregion
 
-        public string TopEmployeeName 
+        public string TopEmployeeName
         {
             get; // { }return label1.Text; 
             set; // { }label1.Text = value; 

@@ -21,6 +21,8 @@ namespace Bit8Piano
 
             Application.Run(controller.View);
 
+         
+
             // i can easily switch to heart mode
 
             //HeartModel heartModel = new HeartModel();
