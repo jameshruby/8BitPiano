@@ -85,8 +85,16 @@
     <Compile Include="Model\IToneObserver.cs" />
     <Compile Include="Model\Sequencer\AudioTape.cs" />
     <Compile Include="Model\Sequencer\Beep.cs" />
-    <Compile Include="Model\Sequencer\Copy of SoundBeep.cs" />
     <Compile Include="Model\Sequencer\SoundBeep.cs" />
+    <Compile Include="View\ControlButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\PianoKeyHalfToneButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\Copy of View.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="View\TestView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,7 +112,6 @@
     <Compile Include="View\PianoKeyButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Program2.cs" />
     <Compile Include="View\View.cs">
       <SubType>Form</SubType>
     </Compile>

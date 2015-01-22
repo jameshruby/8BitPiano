@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Bit8Piano
 {
-    class PianoKeyButton : KeyboardButton
+    /// <summary>
+    /// Prepared for app controls
+    /// </summary>
+    class ControlButton : Button
     {
-        private static int UniqueTabIndex = 1;
+             private static int UniqueTabIndex = 1;
 
         private static int positionX = 6;
-        private static int positionY = 40;
+        private static int positionY = 28;
 
         private const int margin = 6;
 
@@ -21,23 +23,22 @@ namespace Bit8Piano
 
         private const int position = width + margin;
 
-        public virtual int PositionX { get { return positionX; } }
-        public  virtual int WidthC{ get { return width;  } }
-        public virtual int HeightC { get { return height; } }
-        
-        public PianoKeyButton(string text)
+
+        private static System.Drawing.Point UniqueLocation = new System.Drawing.Point(8, 8);
+
+        public ControlButton(string text)
         {
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.FlatAppearance.BorderSize = 0;
             this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke;
             this.FlatAppearance.MouseDownBackColor = System.Drawing.Color.GreenYellow;
-            this.FlatAppearance.MouseOverBackColor =   this.BackColor;
-            this.Location = new System.Drawing.Point(PositionX, positionY);
-            this.Size = new System.Drawing.Size(WidthC, HeightC);
-            this.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
+            this.Location = new System.Drawing.Point(positionX, positionY);
+            this.Size = new System.Drawing.Size(width, height);
+            this.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Text = text;
-            this.Font = new System.Drawing.Font("Palatino Linotype", 25);
+            this.Font = new System.Drawing.Font("Palatino Linotype", 100F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 
             this.UseVisualStyleBackColor = false;
@@ -48,7 +49,6 @@ namespace Bit8Piano
 
             UniqueTabIndex++;
             positionX += position;
-
         }
     }
 }

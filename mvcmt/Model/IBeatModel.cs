@@ -10,10 +10,6 @@ namespace Bit8Piano
     {
         void PlayTone(Tone actualTone);
 
-        void MonitorChanges();
-
-        string FullName { get; }
-
         event Action OnPropertyChange;
 
         void Stop();

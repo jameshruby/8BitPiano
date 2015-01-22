@@ -17,42 +17,9 @@ namespace Bit8Piano
         void Attach(IEventObserver observerView);
     }
 
-//Private Sub Play(ByVal DeviceID as Integer, ByVal Bytearray() as Byte) 
-
-//Dim MemStream as new MemoryStream(Bytearray)
-//Dim WOut as new NAudio.Wave.WaveOut(DeviceID)
-//WOut.Init(MemStream)
-//WOut.Play()
-
-//End Sub
-
-
-//    Public Class Form1
-
-//    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-//        Dim WaveOut As New WaveOut() 'Class WaveOut uses WaveOutOpen to open a audio device.
-
-//        Dim WaveStream As New WaveFileReader(New MemoryStream(My.Resources.Tune)) 'Create a Waveprovider,
-//        ' in this case a Stream called WaveStream and pass your song to it.
-
-//        WaveOut.Init(WaveStream) 'Use the Init function, to prepare playback. NAudio will call WaveOutPrepareHeader internally for you,
-//        'but keep in mind, that NAudio needs the COMPLETE WaveFile at this point including the header. So DON´T set a position here!
-
-//        WaveStream.Position = 2000000 'Now you can specify a position in your WaveStream.
-//        'Alternatively use "WaveStream.seek(2000000,SeekOrigin.Begin)" here.
-
-//        WaveOut.Play() 'Let NAudio play the stream. It will do the tricky work for you, including callback, writing the audio blocks with
-//        'WaveOutWrite and enqueing them using several buffers to recieve a fluent playback.
-//    End Sub
-
-//End Class
-
-
     public class BeepNonStatic
     {
-        public event EventHandler changed;
-
+       
         //private SoundPlayer SP = new SoundPlayer();
         private SoundPlayer SP;
         private BinaryWriter BW;
@@ -63,10 +30,10 @@ namespace Bit8Piano
 
         public BeepNonStatic()
         {
-              CreateSoundPlayer();
-             var optimalLoopDuration = 300;
-             Samples = GetSamples(optimalLoopDuration);
-                
+            CreateSoundPlayer();
+            var optimalLoopDuration = 200;
+            Samples = GetSamples(optimalLoopDuration);
+
         }
 
         private void CreateSoundPlayer()
@@ -74,173 +41,73 @@ namespace Bit8Piano
             SP = new SoundPlayer();
         }
         // > 100 throws exception
-        private short VOLUME_AMOUNT = 100;
+        private short VOLUME_AMOUNT = 30;
         private double workingAmplitude;
         private int Samples;
-        private double tempStrength;
+       
+        private WaveOut waveOut;
 
         public void Play(double frequency, double duration)
         {
-            //var t = new Thread(() => BeepBeep(frequency));
-            //t.Start();
             BeepBeep(frequency);
         }
 
         public void Stop()
         {
-            //SP.Stop();
-            //var currentPlayed = SP.Stream.Position;
-            //if (currentPlayed != SP.Stream.Length)
+            //most flexible would be to get current position wihin the stream'
+            //and calcul. to the 0
+
+            //OR  if current < endPhase move current to the final phase
+            //else let the end phase fade out
+
+            //if other tone is pressed -> transition, calculation of new sound between known tones?
+
+            //var positionWhenStopped = waveOut.GetPosition();
+
+            //if (positionWhenStopped < memoryStream.Length)
             //{
-            //  SP.Stream.Position = SP.Stream.Length-5;
-            //SP.Stream.Seek(SP.Stream.Length - 3, SeekOrigin.Begin);
-            //SP.Load();
-
+      
             //}
-
-            //memoryStream.Position = SP.Stream.Length - 5;
-            //SP.Stream = memoryStream;
-            //SP.Play();
-
-
-            //SP.Stream.Seek(12, SeekOrigin.);
-            //if(SP.Stream.Position == SP.Stream.Length - 1)  
-            //
         }
 
-        private void StartMonitoringChanges()
-        {
-            //monitor playing of stream in player class
-            bool isRunning = true;
-
-            Thread t = new Thread(delegate()
-            {
-                Thread.Sleep(100);
-
-                
-                Thread.Sleep(200);
-
-                if (changed != null)
-                {
-                    changed(this, EventArgs.Empty);
-                }
-                
-                
-                //while (isRunning)
-                //{
-                //    //if (this.SP.Stream.Position > 300)
-                //    //    Debug.WriteLine("hghgh");
-
-                //    Debug.WriteLine("Position.... " + this.SP.Stream.Position);
-
-                //    //if (this.SP.Stream.Position > SP.Stream.Length - 3)
-                //    //{
-                //    //    if (changed != null)
-                //    //    {
-                //    //        changed(this, EventArgs.Empty);
-                //    //    }
-
-                //    //    isRunning = false;
-                //    //}
-
-                //    /// System.Windows.Forms.MessageBox.Show("hgh");
-
-
-                //    //FirePropertyChange();
-                //    //SetEmployeeTo
-                //    //(
-                //    //    firstNames[rand.Next(firstNames.Length)],
-                //    //    lastNames[rand.Next(lastNames.Length)]
-                //    //);
-                //    //Thread.Sleep(DELAY);
-                //}
-            });
-
-
-            //Thread t = new Thread(() =>
-            //    Console.Write("sdf")
-            //    );
-            //t.IsBackground = false;
-            t.Start();
-        }
-
+       
         public void Attach(IEventObserver observerView)
         {
-            changed += observerView.HandleEvent;
+            //changed += observerView.HandleEvent;
         }
 
 
         private void BeepBeep(double Frequency)
         {
-            WriteToneToStream(Frequency, false);
-            SetStreamToTheBegining();
+            WriteToneToStream(Frequency, this.memoryStream);
+            SetStreamToTheBegining(this.memoryStream);
 
-           //System.IO.File.WriteAllBytes("tone.wav", memoryStream.ToArray());
+            //System.IO.File.WriteAllBytes("tone.wav", memoryStream.ToArray());
 
-            //SetSoundPlayerStream();
-            
-            //SP.SoundLocation = "tone.wav";
-
-            //SP.Stream.Seek(12, SeekOrigin.Current);
-
-            //var thread = new Thread(StartMonitoringChanges);
-            //thread.IsBackground = false;
-            //thread.Priority = ThreadPriority.Normal;
-            //thread.Start();
-
-
-            //NAudio.Wave.WaveStream pcm = new NAudio.Wave.WaveChannel32(new NAudio.Wave.RawSourceWaveStream(memoryStream, );
-
-
-            //WaveFileReader reader = new WaveFileReader(@"C:\Music\Example.wav");
-            //LoopStream loop
            
-            var waveOut = new WaveOut();
-            //var outputStream = CreateInputStream();
-            //waveOut.Init(outputStream);
-
-
-         // 'Create a Waveprovider,' in this case a Stream called WaveStream and pass your song to it.
-        var waveStream = new WaveFileReader(memoryStream);
-     
-            
-        //  'but keep in mind, that NAudio needs the COMPLETE WaveFile at this point including the header. So DON´T set a position here!
-       // 'Use the Init function, to prepare playback. NAudio will call WaveOutPrepareHeader internally for you, 
-       
-       waveOut.Init(waveStream);
-      
+            // 'Create a Waveprovider,in this case a Stream called WaveStream 
+            var waveStream = new WaveFileReader(this.memoryStream);
             // 'Now you can specify a position in your WaveStream.
-        //'Alternatively use "WaveStream.seek(2000000,SeekOrigin.Begin)" here.
-        waveStream.Position = 0;
-       //    'Let NAudio play the stream. It will do the tricky work for you, including callback, writing the audio blocks with
-        //'WaveOutWrite and enqueing them using several buffers to recieve a fluent playback.
-        waveOut.Play();
+            //'Alternatively use "WaveStream.seek(2000000,SeekOrigin.Begin)" here.
+            //waveStream.Position = 0;
 
 
-
-            //PlaySoundPlayer();
-
-            //StartMonitoringChanges();
-            
-
-
-            //changed.Invoke(this, EventArgs.Empty);
-
-          
-                
-            //SP.Stream.
-
-            //Dispose();
+            //NAudio needs the COMPLETE WaveFile at this point including the header. 
+            //DON´T set a position here!Use the Init function, to prepare playback.
+            waveOut = new WaveOut();
+            waveOut.Init(waveStream);
+            waveOut.Play();
+  
         }
 
         private void SetSoundPlayerStream()
         {
-            SP.Stream = memoryStream;
+            
         }
 
-        private void SetStreamToTheBegining()
+        private void SetStreamToTheBegining(MemoryStream stream)
         {
-            memoryStream.Seek(0, SeekOrigin.Begin);
+            stream.Seek(0, SeekOrigin.Begin);
         }
 
         private void PlaySoundPlayer()
@@ -282,19 +149,14 @@ namespace Bit8Piano
         //... so with iterator pattern i dont need phase vars 
         #endregion
 
-        private void WriteActualToneToWriter(short Sample)
-        {
-            BW.Write(Sample);
-            BW.Write(Sample);
-        }
 
-        private void WriteToneToStream(double frequency, bool EndPart)
+        private void WriteToneToStream(double frequency, MemoryStream stream)
         {
             workingAmplitude = Amplitude;
 
             this.deltaFT = GetDeltaFT(frequency);
 
-            int Bytes = PrepareStreamWithSamples(Samples);
+            int Bytes = PrepareStreamWithSamples(stream, Samples);
             WriteWavHeaderToStream(Bytes);
 
             double minSound = 0.0;
@@ -326,13 +188,17 @@ namespace Bit8Piano
                 {
                     minSound += -(SustainPhase.strength - ReleasePhase.strength) / PhaseDuration((double)ReleasePhase.duration);
                 }
+                
                 var Sample = GetFinalSamples(minSound, this.deltaFT, T);
-
-                BW.Write(Sample);
-                BW.Write(Sample);
-            }
+                WriteActualToneToWriter(Sample);
+           }
 
             BW.Flush();
+        }
+        private void WriteActualToneToWriter(short Sample)
+        {
+            BW.Write(Sample);
+            BW.Write(Sample);
         }
 
         private double PhaseDuration(double duration)
@@ -350,11 +216,13 @@ namespace Bit8Piano
             return (int)(441.0 * Duration / 10.0);
         }
 
-        private int PrepareStreamWithSamples(int Samples)
+        private int PrepareStreamWithSamples(MemoryStream stream, int Samples)
         {
             int Bytes = Samples * sizeof(int);
-            memoryStream = new MemoryStream(44 + Bytes);
-            BW = new BinaryWriter(memoryStream);
+            stream = new MemoryStream(44 + Bytes);
+            BW = new BinaryWriter(stream);
+            this.memoryStream = stream;
+
             return Bytes;
         }
 

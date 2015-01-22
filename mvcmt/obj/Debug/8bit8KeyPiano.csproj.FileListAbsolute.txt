@@ -39,3 +39,4 @@ C:\Github\Bit8Piano\mvcmt\obj\Debug\GenerateResource.read.1.tlog
 C:\Github\Bit8Piano\mvcmt\obj\Debug\GenerateResource.write.1.tlog
 C:\Github\Bit8Piano\mvcmt\obj\Debug\Bit8Piano.TestView.resources
 C:\Github\Bit8Piano\mvcmt\bin\Debug\NAudio.dll
+C:\Github\Bit8Piano\mvcmt\obj\Debug\Bit8Piano.Icons.resources

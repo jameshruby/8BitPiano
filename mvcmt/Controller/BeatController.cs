@@ -15,7 +15,7 @@ namespace Bit8Piano
         public BeatController(IBeatModel beatModel)
         {
             this.beatModel = beatModel;
-         
+
             view = new View(this, beatModel);
 
             //this.beatModel.Attach((IEventObserver)view);
@@ -28,13 +28,11 @@ namespace Bit8Piano
                 return view;
             }
         }
-        
+
         public void PerformActionWithStrategy(int tone)
         {
             Tone actualTone = ToneStrategy(tone);
             beatModel.PlayTone(actualTone);
-         
-           
         }
 
         private static Tone ToneStrategy(int tone)
@@ -67,20 +65,26 @@ namespace Bit8Piano
                 case 8:
                     actualTone = Tone.C5;
                     break;
+                case 9:
+                    actualTone = Tone.Csharp;
+                    break;
+                case 10:
+                    actualTone = Tone.Dsharp;
+                    break;
+                case 11:
+                    actualTone = Tone.Fsharp;
+                    break;
+                case 12:
+                    actualTone = Tone.Gsharp;
+                    break;
+                case 13:
+                    actualTone = Tone.Asharp;
+                    break;
                 default:
-                    actualTone = Tone.Fsharp1;
+                    throw new NotSupportedException();
                     break;
             }
             return actualTone;
-        }
-
-         public void GetTopEmloee()
-        {
-            if (!monitoring)
-            {
-                monitoring = true;
-                beatModel.MonitorChanges();
-            }
         }
 
         public void Stop()

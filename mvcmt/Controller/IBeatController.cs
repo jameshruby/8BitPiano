@@ -11,8 +11,6 @@ namespace Bit8Piano
 
         void PerformActionWithStrategy(int tone);
 
-        void GetTopEmloee();
-
         void Stop();
     }
 }
