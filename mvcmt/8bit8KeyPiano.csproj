@@ -89,11 +89,11 @@
     <Compile Include="View\ControlButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="View\PartialView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="View\PianoKeyHalfToneButton.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\Copy of View.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\TestView.cs">
       <SubType>Form</SubType>

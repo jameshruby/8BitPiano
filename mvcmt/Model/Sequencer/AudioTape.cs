@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Bit8Piano
 {
-    public class AudioTape
-    {
+    
         // Outside Frequency Range: C#0/Db0, D#0/Eb0, F#0/Gb0, G#0/Ab0, A#0/Bb0, C#1/Db1
-        public enum Tone
+         enum Tone
         {
             SILENCE = 0,
             Dsharp1, Eb1 = 39,
@@ -105,5 +104,4 @@ namespace Bit8Piano
             D8 = 4699,
             Dsharp8 = 4978,    //Eb8
         }
-    }
 }
