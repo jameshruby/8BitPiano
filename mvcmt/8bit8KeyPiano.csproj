@@ -54,6 +54,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NAudio, Version=1.7.2.19, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\NAudio.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -67,6 +71,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\BeatController.cs" />
+    <Compile Include="Icons1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Icons.resx</DependentUpon>
+    </Compile>
     <Compile Include="Model\Sequencer\ADSR\AbstractPhase.cs" />
     <Compile Include="Model\Sequencer\ADSR\ADSRPhases.cs" />
     <Compile Include="Model\Sequencer\ADSR\Phase.cs" />
@@ -76,13 +85,8 @@
     <Compile Include="Model\IToneObserver.cs" />
     <Compile Include="Model\Sequencer\AudioTape.cs" />
     <Compile Include="Model\Sequencer\Beep.cs" />
+    <Compile Include="Model\Sequencer\Copy of SoundBeep.cs" />
     <Compile Include="Model\Sequencer\SoundBeep.cs" />
-    <Compile Include="Model\Sequencer\SamplesCollection.cs" />
-    <Compile Include="Model\Sequencer\ConcreteIterator.cs" />
-    <Compile Include="Model\Sequencer\ICollection.cs" />
-    <Compile Include="Model\Sequencer\IIterator.cs" />
-    <Compile Include="Model\Sequencer\IteratorSample.cs" />
-    <Compile Include="Model\Sequencer\StreamWriteIterator.cs" />
     <Compile Include="View\TestView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +108,10 @@
     <Compile Include="View\View.cs">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="Icons.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icons1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\TestView.resx">
       <DependentUpon>TestView.cs</DependentUpon>
     </EmbeddedResource>
@@ -137,8 +145,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="NAudio.dll" />
     <Content Include="pianoIcon.ico" />
     <Content Include="Resources\icon2.gif" />
+    <None Include="Resources\iconExit2.gif" />
+    <None Include="Resources\iconClose.gif" />
+    <None Include="Resources\iconMinimize.gif" />
+    <None Include="Resources\iconSettings.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

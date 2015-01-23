@@ -47,9 +47,32 @@ namespace Bit8Piano
         private bool keyDownOnce = true;
         private Button exitButton;
         private Panel results;
+        private Button settingsButton;
+        private Button minimizeButton;
+
 
         #endregion
 
+
+        private const int WM_NCHITTEST = 0x84;
+        private const int HTCLIENT = 0x1;
+        private const int HTCAPTION = 0x2;
+
+        ///
+        /// Handling the window messages
+        ///
+        protected override void WndProc(ref Message message)
+        {
+            base.WndProc(ref message);
+
+            if (message.Msg == WM_NCHITTEST && (int)message.Result == HTCLIENT)
+                message.Result = (IntPtr)HTCAPTION;
+        }
+        
+        
+        
+        
+        
         #region Private methods
 
         /// <summary>
@@ -82,29 +105,55 @@ namespace Bit8Piano
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumOrchid;
-            this.ClientSize = new System.Drawing.Size(588, 328);
+            this.ClientSize = new System.Drawing.Size(542, 314);
 
 
 
             this.exitButton = new Button();
-            this.exitButton.BackColor = System.Drawing.Color.DarkOrchid;
+            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitButton.BackColor = System.Drawing.Color.MediumOrchid;
             this.exitButton.BackgroundImageLayout = ImageLayout.Center;
-
+            this.exitButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.exitButton.FlatAppearance.BorderSize = 1;
             //this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Plum;
-            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+
+            
+;
             this.exitButton.Width = 52;
             this.exitButton.Height = 22;
-            this.exitButton.Image = System.Drawing.Bitmap.FromFile(@"C:\Github\Bit8Piano\mvcmt\Resources\icon2.gif");
+            this.exitButton.Image = System.Drawing.Bitmap.FromFile(@"C:\Github\Bit8Piano\mvcmt\Resources\iconExit2.gif");
 
             this.exitButton.Location = new System.Drawing.Point(this.Width - (this.exitButton.Width + 8), 0);
             this.exitButton.Click += new EventHandler(button0_Click);
 
 
-            //this.settingsButton = new Button();
-            //this.exitButton.Width = 41;
-            //this.exitButton.Width = 41;
-            //this.exitButton.Location = new System.Drawing.Point(this.Width - this.exitButton.Width, 0);
-            //this.exitButton.Click += new EventHandler(button0_Click);
+
+
+            this.minimizeButton = new Button();
+            this.minimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.minimizeButton.BackColor = System.Drawing.Color.MediumOrchid;
+            this.minimizeButton.BackgroundImageLayout = ImageLayout.Center;
+            this.minimizeButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.minimizeButton.FlatAppearance.BorderSize = 1;
+            this.minimizeButton.Width = 52;
+            this.minimizeButton.Height = 22;
+            this.minimizeButton.Image = System.Drawing.Bitmap.FromFile(@"C:\Github\Bit8Piano\mvcmt\Resources\iconMinimize.gif");
+
+            this.minimizeButton.Location = new System.Drawing.Point(this.Width - (this.exitButton.Width + 2 + 52), 0);
+            this.minimizeButton.Click += new EventHandler(minimizeButton_Click);
+
+
+            this.settingsButton = new Button();
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.BackColor = System.Drawing.Color.MediumOrchid;
+            this.settingsButton.BackgroundImageLayout = ImageLayout.Center;
+            this.settingsButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.settingsButton.FlatAppearance.BorderSize = 1;
+            this.settingsButton.Width = 52;
+            this.settingsButton.Height = 22;
+            this.settingsButton.Image = System.Drawing.Bitmap.FromFile(@"C:\Github\Bit8Piano\mvcmt\Resources\iconSettings.gif");
+            this.settingsButton.Location = new System.Drawing.Point(1, 0);
+            this.settingsButton.Click += new EventHandler(button0_Click);
 
 
             this.button1 = new Bit8Piano.PianoKeyButton("C");
@@ -156,19 +205,26 @@ namespace Bit8Piano
             //results.Visible = true;
 
             this.Controls.Add(this.exitButton);
-            //this.Controls.Add(this.results);
+            this.Controls.Add(this.minimizeButton);
+            this.Controls.Add(this.settingsButton);
             this.Controls.AddRange(pianoKeysButtons.ToArray<Control>());
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "View";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+        
             this.Text = "8s8b8k";
             this.ResumeLayout(false);
             this.PerformLayout();
             this.KeyDown += View_KeyDown;
             this.KeyUp += View_KeyUp;
 
+        }
+
+        void minimizeButton_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
 
         void button0_Click(object sender, EventArgs e)
@@ -186,14 +242,14 @@ namespace Bit8Piano
             //block keys wuthout blocking whole UI thread
             //count time and unblock it again
 
-            DisablePianoKeys();
+            //DisablePianoKeys();
 
             foreach (var pianoKeyButton in this.pianoKeysButtons)
             {
                 if (Object.ReferenceEquals(sender, pianoKeyButton))
                 {
                     Button f = (Button)pianoKeyButton;
-                    f.BackColor = System.Drawing.Color.GreenYellow;
+                    //f.BackColor = System.Drawing.Color.GreenYellow;
                     beatController.PerformActionWithStrategy(f.TabIndex);
                 }
             }
@@ -317,7 +373,7 @@ namespace Bit8Piano
 
         public void HandleEvent(object sender, EventArgs e)
         {
-            EnablePianoKeys();
+            //EnablePianoKeys();
         }
     }
 }

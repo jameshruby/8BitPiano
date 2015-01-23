@@ -18,7 +18,7 @@ namespace Bit8Piano
          
             view = new View(this, beatModel);
 
-            this.beatModel.Attach((IEventObserver)view);
+            //this.beatModel.Attach((IEventObserver)view);
         }
 
         public View ViewProp
