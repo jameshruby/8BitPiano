@@ -15,10 +15,13 @@ namespace Bit8Piano
         public BeatController(IBeatModel beatModel)
         {
             this.beatModel = beatModel;
+         
             view = new View(this, beatModel);
+
+            this.beatModel.Attach((IEventObserver)view);
         }
 
-        public View View
+        public View ViewProp
         {
             get
             {
@@ -30,6 +33,8 @@ namespace Bit8Piano
         {
             Tone actualTone = ToneStrategy(tone);
             beatModel.PlayTone(actualTone);
+         
+           
         }
 
         private static Tone ToneStrategy(int tone)
@@ -69,8 +74,7 @@ namespace Bit8Piano
             return actualTone;
         }
 
-
-        public void GetTopEmloee()
+         public void GetTopEmloee()
         {
             if (!monitoring)
             {
@@ -78,7 +82,6 @@ namespace Bit8Piano
                 beatModel.MonitorChanges();
             }
         }
-
 
         public void Stop()
         {

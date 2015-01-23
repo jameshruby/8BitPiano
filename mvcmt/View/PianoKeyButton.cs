@@ -31,17 +31,17 @@ namespace Bit8Piano
 
         public PianoKeyButton(string text)
         {
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.FlatAppearance.BorderSize = 0;
             this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FlatAppearance.MouseDownBackColor = System.Drawing.Color.GreenYellow;
-            this.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White;
+            this.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke;
             this.Location = new System.Drawing.Point(positionX, positionY);
             this.Size = new System.Drawing.Size(width, height);
             this.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.Text = text;
-            this.Font = new System.Drawing.Font("Palatino Linotype", 30F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ForeColor = System.Drawing.Color.LightGray;
+            this.Font = new System.Drawing.Font("Palatino Linotype", 100F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Pixel, ((byte)(0)));
+            this.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
 
             this.UseVisualStyleBackColor = false;
             //this.MouseDown += button_Click;

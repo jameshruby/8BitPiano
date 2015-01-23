@@ -17,5 +17,7 @@ namespace Bit8Piano
         event Action OnPropertyChange;
 
         void Stop();
+
+        void Attach(IEventObserver observerView);
     }
 }

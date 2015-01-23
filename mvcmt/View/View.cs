@@ -8,7 +8,12 @@ using System.Threading;
 
 namespace Bit8Piano
 {
-    class View : Form
+    public interface IEventObserver
+    {
+        void HandleEvent(object sender, EventArgs e);
+    }
+
+    class View : Form, IEventObserver
     {
         #region Private Fields
 
@@ -83,15 +88,15 @@ namespace Bit8Piano
 
             this.exitButton = new Button();
             this.exitButton.BackColor = System.Drawing.Color.DarkOrchid;
+            this.exitButton.BackgroundImageLayout = ImageLayout.Center;
+
             //this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Plum;
-            //this.exitButton.FlatAppearance.BorderSize = 1;
-            this.exitButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray;
-            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.exitButton.Width = 42;
+            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.exitButton.Width = 52;
             this.exitButton.Height = 22;
             this.exitButton.Image = System.Drawing.Bitmap.FromFile(@"C:\Github\Bit8Piano\mvcmt\Resources\icon2.gif");
-       
-            this.exitButton.Location = new System.Drawing.Point(this.Width-(this.exitButton.Width+8), 0);
+
+            this.exitButton.Location = new System.Drawing.Point(this.Width - (this.exitButton.Width + 8), 0);
             this.exitButton.Click += new EventHandler(button0_Click);
 
 
@@ -135,7 +140,7 @@ namespace Bit8Piano
             this.button8.MouseDown += button_Click;
             this.button8.MouseUp += button_Up;
 
-        
+
             this.pianoKeysButtons.Add(this.button1);
             this.pianoKeysButtons.Add(this.button2);
             this.pianoKeysButtons.Add(this.button3);
@@ -149,7 +154,7 @@ namespace Bit8Piano
             //results.Width = 40;
             //results.Height = 50;
             //results.Visible = true;
-           
+
             this.Controls.Add(this.exitButton);
             //this.Controls.Add(this.results);
             this.Controls.AddRange(pianoKeysButtons.ToArray<Control>());
@@ -162,7 +167,6 @@ namespace Bit8Piano
             this.ResumeLayout(false);
             this.PerformLayout();
             this.KeyDown += View_KeyDown;
-            //this.KeyPress += new KeyPressEventHandler(View_KeyPress);
             this.KeyUp += View_KeyUp;
 
         }
@@ -172,32 +176,45 @@ namespace Bit8Piano
             Application.Exit();
         }
 
-        void View_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void button_Up(object sender, MouseEventArgs e)
         {
             beatController.Stop();
         }
 
-
         void button_Click(object sender, EventArgs e)
         {
-            //beatController.GetTopEmloee();
+            //block keys wuthout blocking whole UI thread
+            //count time and unblock it again
+
+            DisablePianoKeys();
 
             foreach (var pianoKeyButton in this.pianoKeysButtons)
             {
                 if (Object.ReferenceEquals(sender, pianoKeyButton))
                 {
                     Button f = (Button)pianoKeyButton;
+                    f.BackColor = System.Drawing.Color.GreenYellow;
                     beatController.PerformActionWithStrategy(f.TabIndex);
                 }
             }
+           
+        }
 
-            //var minDurationOfKeyPress = 100;
-            //Thread.Sleep(1000);
+        private delegate void EnablePianoKeysDelegate();
+        private void EnablePianoKeys()
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new EnablePianoKeysDelegate(EnablePianoKeys),
+                                          new object[] { });
+                return;
+            }
+            pianoKeysButtons.ForEach(key => { key.Enabled = true; key.BackColor = System.Drawing.Color.White; });
+        }
+
+        public void DisablePianoKeys()
+        {
+            pianoKeysButtons.ForEach(key => key.Enabled = false);
         }
 
         private KeyboardButton UsedKeysActivationStrategy(int customIndex)
@@ -295,6 +312,12 @@ namespace Bit8Piano
             {
                 TopEmployeeName = beatModel.FullName;
             }
+        }
+
+
+        public void HandleEvent(object sender, EventArgs e)
+        {
+            EnablePianoKeys();
         }
     }
 }

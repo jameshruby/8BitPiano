@@ -29,25 +29,25 @@ namespace Bit8Piano.Model.Sequencer.ADSR
     static class AttackPhase
     {
        public const double strength = 32767.0;
-       public const double duration = (double)1 / 4;
+       public const double duration = (double)1 / 20;
 
 
-       public double LoopOver()
-       {
-           if (T < GetSamplesDuration(AttackPhase.duration))
-           {
-               minSound += AttackPhase.strength / GetSamplesDuration(AttackPhase.duration);
-               tempStrength = T;
+       //public double LoopOver(double T)
+       //{
+       //    if (T < GetSamplesDuration(AttackPhase.duration))
+       //    {
+       //        minSound += AttackPhase.strength / GetSamplesDuration(AttackPhase.duration);
+       //        tempStrength = T;
 
-           }
+       //    }
        
-       }
+       //}
     }
 
     static class DecayPhase
     {
         public const double strength = 18000.0;
-        public const double duration = (double)1 / 4;
+        public const double duration = (double)1 / 9;
     }
 
     static class SustainPhase
@@ -59,6 +59,6 @@ namespace Bit8Piano.Model.Sequencer.ADSR
     static class ReleasePhase
     {
         public const double strength = 0.0;
-        public const double duration = (double)1 / 4;
+        public const double duration = (double)1 / 6;
     }
 }

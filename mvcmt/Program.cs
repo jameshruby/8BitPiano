@@ -19,17 +19,8 @@ namespace Bit8Piano
             IBeatModel beatModel = new BeatModel();
             IBeatController controller = new BeatController(beatModel);
 
-            Application.Run(controller.View);
+            Application.Run(controller.ViewProp);
 
-         
-
-            // i can easily switch to heart mode
-
-            //HeartModel heartModel = new HeartModel();
-            //IBeatController controller = new HeartController(heartModel);
-
-            //Application.EnableVisualStyles();
-            //Application.Run(new TestAwaitUI());   /
         }
     }
 }

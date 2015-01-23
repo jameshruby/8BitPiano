@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Bit8Piano
 {
-    interface IBeatController
+     interface IBeatController
     {
-        View View { get;}
+        View ViewProp { get;}
 
         void PerformActionWithStrategy(int tone);
 

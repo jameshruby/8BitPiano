@@ -75,36 +75,25 @@
     <Compile Include="Model\Sequencer\BeatModel.cs" />
     <Compile Include="Model\IToneObserver.cs" />
     <Compile Include="Model\Sequencer\AudioTape.cs" />
-    <Compile Include="Model\Sequencer\BeepThreading.cs" />
     <Compile Include="Model\Sequencer\Beep.cs" />
-    <Compile Include="Model\Sequencer\BeepNonStatic.cs" />
-    <Compile Include="Model\Sequencer\Copy of BeepNonStatic.cs" />
-    <Compile Include="Model\Sequencer\Copy of BeepThreading.cs" />
+    <Compile Include="Model\Sequencer\SoundBeep.cs" />
     <Compile Include="Model\Sequencer\SamplesCollection.cs" />
     <Compile Include="Model\Sequencer\ConcreteIterator.cs" />
     <Compile Include="Model\Sequencer\ICollection.cs" />
     <Compile Include="Model\Sequencer\IIterator.cs" />
     <Compile Include="Model\Sequencer\IteratorSample.cs" />
     <Compile Include="Model\Sequencer\StreamWriteIterator.cs" />
-    <Compile Include="ObserverTest.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="TesAwaitUI.cs" />
-    <Compile Include="TTest.cs">
+    <Compile Include="View\TestView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TTest.Designer.cs">
-      <DependentUpon>TTest.cs</DependentUpon>
+    <Compile Include="View\TestView.Designer.cs">
+      <DependentUpon>TestView.cs</DependentUpon>
     </Compile>
     <Compile Include="View\BPMOberver.cs" />
     <Compile Include="Controller\IBeatController.cs" />
     <Compile Include="Model\IBeatModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\Sequencer\Sequencer.cs" />
     <Compile Include="View\KeyboardButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -115,12 +104,8 @@
     <Compile Include="View\View.cs">
       <SubType>Form</SubType>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TTest.resx">
-      <DependentUpon>TTest.cs</DependentUpon>
+    <EmbeddedResource Include="View\TestView.resx">
+      <DependentUpon>TestView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\View.resx">
       <DependentUpon>View.cs</DependentUpon>
@@ -154,8 +139,6 @@
   <ItemGroup>
     <Content Include="pianoIcon.ico" />
     <Content Include="Resources\icon2.gif" />
-    <Content Include="Resources\icon2.png" />
-    <None Include="Resources\B6gU1JNIcAEOpAw.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
