@@ -16,39 +16,97 @@ namespace ConsolePiano.InstrumentalNote
     {
         private BinaryWriter BW;
         private MemoryStream memoryStream;
-    
-        private List<byte> byteArray = new List<byte>();
-
-        private double deltaFT;
-
         private int Samples;
 
-        private WaveOut waveOut;
+        private List<double> preparedInstrumentADSRTone = new List<double>();
 
-        public void Play(double frequency)
+        public CreateAndPlayInstrumentTone()
         {
-            GenerateToneADSRPhasesAndPlayIt(frequency);
-        }
-
-        private void GenerateToneADSRPhasesAndPlayIt(double Frequency)
-        {
+            //GenerateADSRPhases
             var optimalLoopDuration = 200;
             Samples = GetSamples(optimalLoopDuration);
 
-            WriteFrequencyADSRPhaseToStream(Frequency);
+            WriteOnlyADSRPhaseToStream();
+        }
 
+        public void Play(double frequency)
+        {
+            GenerateToneAndPlayIt(frequency);
+        }
+        private void GenerateToneAndPlayIt(double Frequency)
+        {
+            WriteFrequencyWithPreparedStream(Frequency);
             SetStreamToTheBegining(this.memoryStream);
 
             //System.IO.File.WriteAllBytes("tone.wav", memoryStream.ToArray());
 
             // Create a Waveprovider,in this case a Stream called WaveStream 
             var waveStream = new WaveFileReader(this.memoryStream);
-
             //NAudio needs the COMPLETE WaveFile at this point including the header. 
             //DON´T set a position here!Use the Init function, to prepare playback.
-            waveOut = new WaveOut();
+            WaveOut waveOut = new WaveOut();
             waveOut.Init(waveStream);
             waveOut.Play();
+        }
+        /// <summary>
+        /// Scheme : //values var is equivalent to Samples
+        //end of every phase is defined by CurrentItem in iterator
+        //
+        // attack   decay sustain  release
+        //---------   ----  ----- -----> t
+        //           -
+        //         -   -
+        //       -      -
+        //     -          ------ 
+        //   -                   -
+        // -                       - 
+
+        //... so with iterator pattern i dont need phase vars 
+        /// </summary>
+        /// <param name="frequency"></param>
+        private void WriteOnlyADSRPhaseToStream()
+        {
+            //int Bytes = PrepareStreamWithSamples(Samples);
+            //WriteWavHeaderToStream(Bytes);
+
+            var instrumentNote = new DefaultInstrumentNote();
+
+            //var optimalLoopDuration = 200;
+            //Samples = GetSamples(optimalLoopDuration);
+
+            for (int T = 0; T < Samples; T++)
+            {
+                instrumentNote.ToNextNote(T);
+
+                if (instrumentNote.State is EndState)
+                {
+                    var Sample = 0.0; //GetFinalSamples(0.0, this.deltaFT, T);
+
+                    this.preparedInstrumentADSRTone.Add(Sample);
+                }
+                else
+                {
+                    var Sample = instrumentNote.CurrentNote;// GetFinalSamples(instrumentNote.CurrentNote, this.deltaFT, T);
+                    this.preparedInstrumentADSRTone.Add(Sample);
+                }
+            }
+        }
+
+
+        private void WriteFrequencyWithPreparedStream(double frequency)
+        {
+            double deltaFT = GetDeltaFT(frequency);
+            //wav builder
+            int Bytes = PrepareStreamWithSamples(Samples);
+            WriteWavHeaderToStream(Bytes);
+          
+            for (int T = 0; T < this.preparedInstrumentADSRTone.Count; T++)//foreach (var tone in this.preparedInstrumentADSRTone) // 
+            {
+                var freqTime = Math.Sin(deltaFT * T);
+                var finalNote = freqTime * this.preparedInstrumentADSRTone[T];
+                WriteActualToneToWriter(System.Convert.ToInt16(finalNote));
+            }
+            BW.Flush();
         }
 
         private void SetStreamToTheBegining(MemoryStream stream)
@@ -66,62 +124,18 @@ namespace ConsolePiano.InstrumentalNote
             return deltaFT;
         }
 
-        /// <summary>
-        /// Scheme : //values var is equivalent to Samples
-        //end of every phase is defined by CurrentItem in iterator
-        //
-        // attack   decay sustain  release
-        //---------   ----  ----- -----> t
-        //           -
-        //         -   -
-        //       -      -
-        //     -          ------ 
-        //   -                   -
-        // -                       - 
-
-        //... so with iterator pattern i dont need phase vars 
-        /// </summary>
-        /// <param name="frequency"></param>
-        private void WriteFrequencyADSRPhaseToStream(double frequency)
-        {
-            this.deltaFT = GetDeltaFT(frequency);
-
-            int Bytes = PrepareStreamWithSamples(Samples);
-            WriteWavHeaderToStream(Bytes);
-
-            var instrumentNote = new DefaultInstrumentNote();
-
-            for (int T = 0; T < Samples; T++)
-            {
-                instrumentNote.ToNextNote(T);
-
-                if (instrumentNote.State is EndState)
-                {
-                    var Sample = GetFinalSamples(0.0, this.deltaFT, T);
-                    WriteActualToneToWriter(Sample);
-                }
-                else
-                {
-                    var Sample = GetFinalSamples(instrumentNote.CurrentNote, this.deltaFT, T);
-                    WriteActualToneToWriter(Sample);
-                }
-            }
-            BW.Flush();
-        }
         private void WriteActualToneToWriter(short Sample)
         {
             BW.Write(Sample);
             BW.Write(Sample);
         }
 
-        private double PhaseDuration(double duration)
-        {
-            return Samples * duration;
-        }
-
         public static short GetFinalSamples(double amplitude, double deltaFT, double T)
         {
-            return System.Convert.ToInt16(amplitude * Math.Sin(deltaFT * T));
+            var freqTime = Math.Sin(deltaFT * T);
+            var totalnote = amplitude * freqTime;
+
+            return System.Convert.ToInt16(totalnote);
         }
 
         private static int GetSamples(double Duration)
@@ -150,3 +164,4 @@ namespace ConsolePiano.InstrumentalNote
 
     }
 }
+
