@@ -45,11 +45,7 @@ namespace Bit8Piano
             //Sequencer.PlayTone(actualTone, Duration.QUARTER);
         }
 
-        public void Stop()
-        {
-            //player should never stop, it makes that "click" noise, whenever changing tone
-            tonePlay.Stop();
-        }
+       
 
         ~BeatModel()
         {

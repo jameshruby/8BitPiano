@@ -5,12 +5,12 @@ using System.Text;
 
 namespace ConsolePiano.InstrumentalNote
 {
-    class AttackPhase : State
+    class AttackPhase : Phase
     {
-        public AttackPhase(State state)
+        public AttackPhase(Phase phase)
         {
-            this.actualSound = state.CurrentNote;
-            this.instrument = state.Instrument;
+            this.actualSound = phase.CurrentNote;
+            this.instrument = phase.Instrument;
             Initialize();
         }
 
@@ -40,7 +40,7 @@ namespace ConsolePiano.InstrumentalNote
         {
             //the other thing is i should maybe realy use percentages for both - strenth and samples
             if (limit > upperLimit)
-                instrument.State = new DecayPhase(this);
+                instrument.Phase = new DecayPhase(this);
         }
     }
 }

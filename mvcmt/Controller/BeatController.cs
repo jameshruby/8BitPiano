@@ -89,7 +89,7 @@ namespace Bit8Piano
 
         public void Stop()
         {
-            beatModel.Stop();
+           
         }
     }
 }

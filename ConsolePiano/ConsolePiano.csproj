@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,10 +51,12 @@
     <Compile Include="InstrumentalNote\DecayPhase.cs" />
     <Compile Include="InstrumentalNote\InstrumentNote.cs" />
     <Compile Include="InstrumentalNote\ReleasePhase.cs" />
-    <Compile Include="InstrumentalNote\CreateAndPlayInstrumentTone.cs" />
+    <Compile Include="InstrumentalNote\StreamAudioBuilder.cs" />
     <Compile Include="InstrumentalNote\State.cs" />
     <Compile Include="InstrumentalNote\SustainPhase.cs" />
     <Compile Include="InstrumentalNote\EndState.cs" />
+    <Compile Include="InstrumentalNote\TonePlayer.cs" />
+    <Compile Include="IPianoKey.cs" />
     <Compile Include="Tones.cs" />
     <Compile Include="Piano.cs" />
     <Compile Include="PianoKey.cs" />

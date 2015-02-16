@@ -5,11 +5,11 @@ using System.Text;
 
 namespace ConsolePiano.InstrumentalNote
 {
-    class ReleasePhase : State
+    class ReleasePhase : Phase
     {
 
-        public ReleasePhase(State state)
-            : this(state.CurrentNote, state.Instrument)
+        public ReleasePhase(Phase phase)
+            : this(phase.CurrentNote, phase.Instrument)
         {
         }
 
@@ -39,11 +39,11 @@ namespace ConsolePiano.InstrumentalNote
         {
             if (limit > lowerlimit && limit < upperLimit)
             {
-                instrument.State = new SustainPhase(this);
+                instrument.Phase = new SustainPhase(this);
             }
             
             if (limit > upperLimit && actualSound <= 0)
-                instrument.State = new EndState(this);
+                instrument.Phase = new EndState(this);
         }
     }
 }

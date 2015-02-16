@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace ConsolePiano.InstrumentalNote
-
 {
-    abstract class State
+    abstract class Phase
     {
         protected DefaultInstrumentNote instrument;
         protected double actualSound;

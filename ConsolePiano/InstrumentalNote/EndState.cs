@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsolePiano.InstrumentalNote
 {
-    class EndState : State
+    class EndState : Phase
     {
         private ReleasePhase releasePhase;
 

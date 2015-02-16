@@ -10,10 +10,6 @@ namespace Bit8Piano
     {
         void PlayTone(Tone actualTone);
 
-        event Action OnPropertyChange;
-
-        void Stop();
-
         void Attach(IEventObserver observerView);
     }
 }

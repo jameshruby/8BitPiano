@@ -5,12 +5,12 @@ using System.Text;
 
 namespace ConsolePiano.InstrumentalNote
 {
-    class DecayPhase : State
+    class DecayPhase : Phase
     {
-        public DecayPhase(State state)
+        public DecayPhase(Phase phase)
         {
-            this.actualSound = state.CurrentNote;
-            this.instrument = state.Instrument;
+            this.actualSound = phase.CurrentNote;
+            this.instrument = phase.Instrument;
             Initialize();
         }
 
@@ -39,7 +39,7 @@ namespace ConsolePiano.InstrumentalNote
         private void StateChangeCheck(int limit)
         {
             if (limit > upperLimit)
-                instrument.State = new SustainPhase(this);
+                instrument.Phase = new SustainPhase(this);
         }
     }
 }

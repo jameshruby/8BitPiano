@@ -7,19 +7,19 @@ namespace ConsolePiano.InstrumentalNote
 {
     class DefaultInstrumentNote
     {
-        private State state;
+        private Phase phase;
 
         public DefaultInstrumentNote()
         {
-            this.state = new AttackPhase(0.0, this);
+            this.phase = new AttackPhase(0.0, this);
         }
 
-        public State State { get { return state; } set { state = value; } }
-        public double CurrentNote { get { return state.CurrentNote; } }
+        public Phase Phase { get { return phase; } set { phase = value; } }
+        public double CurrentNote { get { return phase.CurrentNote; } }
 
         internal void ToNextNote(int limit) //not sure bout naming
         {
-            state.NextNote(limit);
+            phase.NextNote(limit);
         }
     }
 }
