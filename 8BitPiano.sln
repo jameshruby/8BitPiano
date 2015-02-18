@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8bit8KeyPiano", "mvcmt\8bit8KeyPiano.csproj", "{F22C08FF-3A21-4695-BE77-C2158D317BAA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMultipleAudio", "TestMultipleAudio\TestMultipleAudio.csproj", "{DFCA4D78-20AE-4459-84AD-23E1435FD0E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsolePiano", "ConsolePiano\ConsolePiano.csproj", "{5CD974A6-E7A9-41C2-9D58-80F52673AF42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,16 @@ Global
 		{DFCA4D78-20AE-4459-84AD-23E1435FD0E1}.Release|Mixed Platforms.Build.0 = Release|x86
 		{DFCA4D78-20AE-4459-84AD-23E1435FD0E1}.Release|x86.ActiveCfg = Release|x86
 		{DFCA4D78-20AE-4459-84AD-23E1435FD0E1}.Release|x86.Build.0 = Release|x86
+		{5CD974A6-E7A9-41C2-9D58-80F52673AF42}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5CD974A6-E7A9-41C2-9D58-80F52673AF42}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{5CD974A6-E7A9-41C2-9D58-80F52673AF42}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{5CD974A6-E7A9-41C2-9D58-80F52673AF42}.Debug|x86.ActiveCfg = Debug|x86
+		{5CD974A6-E7A9-41C2-9D58-80F52673AF42}.Debug|x86.Build.0 = Debug|x86
+		{5CD974A6-E7A9-41C2-9D58-80F52673AF42}.Release|Any CPU.ActiveCfg = Release|x86
+		{5CD974A6-E7A9-41C2-9D58-80F52673AF42}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{5CD974A6-E7A9-41C2-9D58-80F52673AF42}.Release|Mixed Platforms.Build.0 = Release|x86
+		{5CD974A6-E7A9-41C2-9D58-80F52673AF42}.Release|x86.ActiveCfg = Release|x86
+		{5CD974A6-E7A9-41C2-9D58-80F52673AF42}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

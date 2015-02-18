@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{DFCA4D78-20AE-4459-84AD-23E1435FD0E1}</ProjectGuid>
+    <ProjectGuid>{5CD974A6-E7A9-41C2-9D58-80F52673AF42}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestMultipleAudio</RootNamespace>
-    <AssemblyName>TestMultipleAudio</AssemblyName>
+    <RootNamespace>ConsolePiano</RootNamespace>
+    <AssemblyName>ConsolePiano</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -46,15 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AudioPlaybackEngine.cs" />
-    <Compile Include="AudioTape.cs" />
-    <Compile Include="CachedSound.cs" />
-    <Compile Include="CachedSoundSampleProvider.cs" />
+    <Compile Include="InstrumentalNote\AttackPhase.cs" />
+    <Compile Include="InstrumentalNote\DecayPhase.cs" />
+    <Compile Include="InstrumentalNote\InstrumentNote.cs" />
+    <Compile Include="InstrumentalNote\ReleasePhase.cs" />
+    <Compile Include="InstrumentalNote\InstrumentToneBuilder.cs" />
+    <Compile Include="InstrumentalNote\State.cs" />
+    <Compile Include="InstrumentalNote\SustainPhase.cs" />
+    <Compile Include="InstrumentalNote\tempState.cs" />
+    <Compile Include="Tones.cs" />
+    <Compile Include="Piano.cs" />
+    <Compile Include="PianoKey.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AutoDisposeFileReader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

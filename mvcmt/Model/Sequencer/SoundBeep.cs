@@ -19,7 +19,7 @@ namespace Bit8Piano
 
     public class BeepNonStatic
     {
-       
+
         //private SoundPlayer SP = new SoundPlayer();
         private SoundPlayer SP;
         private BinaryWriter BW;
@@ -44,7 +44,7 @@ namespace Bit8Piano
         private short VOLUME_AMOUNT = 30;
         private double workingAmplitude;
         private int Samples;
-       
+
         private WaveOut waveOut;
 
         public void Play(double frequency, double duration)
@@ -66,11 +66,11 @@ namespace Bit8Piano
 
             //if (positionWhenStopped < memoryStream.Length)
             //{
-      
+
             //}
         }
 
-       
+
         public void Attach(IEventObserver observerView)
         {
             //changed += observerView.HandleEvent;
@@ -84,25 +84,19 @@ namespace Bit8Piano
 
             //System.IO.File.WriteAllBytes("tone.wav", memoryStream.ToArray());
 
-           
-            // 'Create a Waveprovider,in this case a Stream called WaveStream 
+            // Create a Waveprovider,in this case a Stream called WaveStream 
             var waveStream = new WaveFileReader(this.memoryStream);
-            // 'Now you can specify a position in your WaveStream.
-            //'Alternatively use "WaveStream.seek(2000000,SeekOrigin.Begin)" here.
-            //waveStream.Position = 0;
-
-
+          
             //NAudio needs the COMPLETE WaveFile at this point including the header. 
             //DON´T set a position here!Use the Init function, to prepare playback.
             waveOut = new WaveOut();
             waveOut.Init(waveStream);
             waveOut.Play();
-  
         }
 
         private void SetSoundPlayerStream()
         {
-            
+
         }
 
         private void SetStreamToTheBegining(MemoryStream stream)
@@ -173,7 +167,7 @@ namespace Bit8Piano
                 {
                     minSound += AttackPhase.strength / PhaseDuration(AttackPhase.duration);
                 }
-
+                                                            //upperLimit
                 else if (T > realAttackDuration && T < realDecayDuration)
                 {
                     minSound += -(AttackPhase.strength - DecayPhase.strength) / PhaseDuration((double)DecayPhase.duration);
@@ -188,10 +182,10 @@ namespace Bit8Piano
                 {
                     minSound += -(SustainPhase.strength - ReleasePhase.strength) / PhaseDuration((double)ReleasePhase.duration);
                 }
-                
+
                 var Sample = GetFinalSamples(minSound, this.deltaFT, T);
                 WriteActualToneToWriter(Sample);
-           }
+            }
 
             BW.Flush();
         }

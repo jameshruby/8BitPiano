@@ -181,8 +181,7 @@ namespace Bit8Piano
             this.MaximizeBox = false;
             this.Name = "View";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Paint += View_Paint;
-
+           
             this.Text = "8s8b8k";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -195,35 +194,20 @@ namespace Bit8Piano
             this.Controls.SetChildIndex(button13, 2);
         }
 
-        void View_Paint(object sender, EventArgs e)
+        /// <summary>
+        /// Enables moving with borderless window
+        /// </summary>
+        /// <param name="message"></param>
+        protected override void WndProc(ref Message message)
         {
-            //    var myObject = sender as PianoKeyButton;
-            //    if (myObject != null)
-            //    {
-            //        //# successfully cast
-            //        //Button b = (PianoKeyButton2)sender;
-            //        myObject.BringToFront();
+            const int WM_NCHITTEST = 0x84;
+            const int HTCLIENT = 0x1;
+            const int HTCAPTION = 0x2;
 
-            //    }
-            //    else
-            //    {
-            //        //#cast failed
-            //    }
+            base.WndProc(ref message);
 
-            //this.button8 = new Bit8Piano.PianoKeyButton("C");
-            //if (sender is KeyboardButton)
-            //{
-            //    MessageBox.Show("blahb vblhja");
-
-            ////    //Button f = (Button)pianoKeyButton;
-            ////    //beatController.PerformActionWithStrategy(f.TabIndex);
-            //}
-
-
-
-            //if (sender.Text == "C#")
-            //    MessageBox.Show("blahb vblhja");
-            //beatController.PerformActionWithStrategy(f.TabIndex);
+            if (message.Msg == WM_NCHITTEST && (int)message.Result == HTCLIENT)
+                message.Result = (IntPtr)HTCAPTION;
         }
 
         /// <summary>

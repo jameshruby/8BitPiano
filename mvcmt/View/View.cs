@@ -15,27 +15,10 @@ namespace Bit8Piano
 
     partial class View : Form
     {
-        private string[] KeysControlingPiano =new string[]{ "a", "s", "d", "f", "g", "h", "j", "k", "w", "e", "r", "y", "u"};
+        private string[] KeysControlingPiano = new string[] { "a", "s", "d", "f", "g", "h", "j", "k", "w", "e", "r", "y", "u" };
 
         private IBeatModel beatModel;
         private IBeatController beatController;
-
-        /// <summary>
-        /// Enables moving with borderless window
-        /// </summary>
-        /// <param name="message"></param>
-        protected override void WndProc(ref Message message)
-        {
-            const int WM_NCHITTEST = 0x84;
-            const int HTCLIENT = 0x1;
-            const int HTCAPTION = 0x2;
-
-            base.WndProc(ref message);
-
-            if (message.Msg == WM_NCHITTEST && (int)message.Result == HTCLIENT)
-                message.Result = (IntPtr)HTCAPTION;
-        }
-
 
         void minimizeButton_Click(object sender, EventArgs e)
         {
@@ -64,7 +47,6 @@ namespace Bit8Piano
                     beatController.PerformActionWithStrategy(f.TabIndex);
                 }
             }
-
         }
 
         private delegate void EnablePianoKeysDelegate();
@@ -136,10 +118,6 @@ namespace Bit8Piano
 
         void View_KeyDown(object sender, KeyEventArgs e)
         {
-            //if (sender is PianoKeyHalfToneButton)
-            //    MessageBox.Show("fdfs");
-
-
             //if (this.keyDownOnce == true)
             //{
 
