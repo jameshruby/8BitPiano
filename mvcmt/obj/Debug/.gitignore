@@ -1,6 +1,0 @@
-*.Cache
-*.tlog
-*.exe
-*.pdb
-/Properties.Resources.Designer.cs.dll
-/Bit8Piano.TTest.resources
