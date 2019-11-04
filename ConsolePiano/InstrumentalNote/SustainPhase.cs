@@ -12,17 +12,17 @@ namespace ConsolePiano.InstrumentalNote
         {
         }
 
-        public SustainPhase(double balance, DefaultInstrumentNote account)
+        public SustainPhase(double actualSound, DefaultInstrumentNote instrument)
         {
-            this.actualSound = balance;
-            this.instrument = account;
+            this.actualSound = actualSound;
+            this.instrument = instrument;
             Initialize();
         }
 
         private void Initialize()
         {
             strength = 0.0;
-            duration = 2205.0;
+            duration = 1002205.0;
 
             lowerlimit = 1421.0;
             upperLimit = 3626.0;

@@ -14,17 +14,17 @@ namespace ConsolePiano.InstrumentalNote
             Initialize();
         }
 
-        public DecayPhase(double balance, DefaultInstrumentNote account)
+        public DecayPhase(double actualSound, DefaultInstrumentNote instrument)
         {
-            this.actualSound = balance;
-            this.instrument = account;
+            this.actualSound = actualSound;
+            this.instrument = instrument;
             Initialize();
         }
 
         private void Initialize()
         {
             strength = 18000.0;
-            duration = 980.0;
+            duration = 44980.0;
 
             lowerlimit = 441.0; //Set State with prev. limit - need mechanism to ensure order of the phases
             upperLimit = 1421.0;
