@@ -153,11 +153,18 @@
   <ItemGroup>
     <Content Include="NAudio.dll" />
     <Content Include="pianoIcon.ico" />
-    <Content Include="Resources\icon2.gif" />
-    <None Include="Resources\iconExit2.gif" />
-    <None Include="Resources\iconClose.gif" />
-    <None Include="Resources\iconMinimize.gif" />
-    <None Include="Resources\iconSettings.gif" />
+    <None Include="Resources\iconExit2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\iconClose.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\iconMinimize.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\iconSettings.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

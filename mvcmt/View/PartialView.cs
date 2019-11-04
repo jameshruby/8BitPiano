@@ -63,7 +63,7 @@ namespace Bit8Piano
             this.exitButton.FlatAppearance.BorderSize = 1;
             this.exitButton.Width = 52;
             this.exitButton.Height = 22;
-            this.exitButton.Image = System.Drawing.Bitmap.FromFile(@"C:\Github\Bit8Piano\mvcmt\Resources\iconExit2.gif");
+            this.exitButton.Image = System.Drawing.Bitmap.FromFile(@".\Resources\iconExit2.gif");
 
             this.exitButton.Location = new System.Drawing.Point(this.Width - (this.exitButton.Width + 8), 0);
             this.exitButton.Click += new EventHandler(button0_Click);
@@ -76,7 +76,7 @@ namespace Bit8Piano
             this.minimizeButton.FlatAppearance.BorderSize = 1;
             this.minimizeButton.Width = 52;
             this.minimizeButton.Height = 22;
-            this.minimizeButton.Image = System.Drawing.Bitmap.FromFile(@"C:\Github\Bit8Piano\mvcmt\Resources\iconMinimize.gif");
+            this.minimizeButton.Image = System.Drawing.Bitmap.FromFile(@".\Resources\iconMinimize.gif");
 
             this.minimizeButton.Location = new System.Drawing.Point(this.Width - (this.exitButton.Width + 2 + 52), 0);
             this.minimizeButton.Click += new EventHandler(minimizeButton_Click);
@@ -90,7 +90,7 @@ namespace Bit8Piano
             this.settingsButton.FlatAppearance.BorderSize = 1;
             this.settingsButton.Width = 52;
             this.settingsButton.Height = 22;
-            this.settingsButton.Image = System.Drawing.Bitmap.FromFile(@"C:\Github\Bit8Piano\mvcmt\Resources\iconSettings.gif");
+            this.settingsButton.Image = System.Drawing.Bitmap.FromFile(@".\Resources\iconSettings.gif");
             this.settingsButton.Location = new System.Drawing.Point(1, 0);
             this.settingsButton.Click += new EventHandler(button0_Click);
 
