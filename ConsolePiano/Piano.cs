@@ -19,6 +19,10 @@ namespace ConsolePiano
 
         public Piano()
         {
+            //Piano creates one audio stream with ADSR phases which is modulated by 
+            //speciic frequency of given note of played key
+
+            //TODO I should be able to compute duration from the actual ADSR phases
             instrumentNote = new StreamAudioBuilder(200);
         }
 
