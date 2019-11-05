@@ -50,14 +50,14 @@
     <Compile Include="InstrumentalNote\AttackPhase.cs" />
     <Compile Include="InstrumentalNote\DecayPhase.cs" />
     <Compile Include="InstrumentalNote\InstrumentNote.cs" />
+    <Compile Include="InstrumentalNote\Phase.cs" />
     <Compile Include="InstrumentalNote\ReleasePhase.cs" />
     <Compile Include="InstrumentalNote\StreamAudioBuilder.cs" />
-    <Compile Include="InstrumentalNote\State.cs" />
     <Compile Include="InstrumentalNote\SustainPhase.cs" />
     <Compile Include="InstrumentalNote\EndState.cs" />
     <Compile Include="InstrumentalNote\TonePlayer.cs" />
     <Compile Include="IPianoKey.cs" />
-    <Compile Include="Tones.cs" />
+    <Compile Include="MusicalTones.cs" />
     <Compile Include="Piano.cs" />
     <Compile Include="PianoKey.cs" />
     <Compile Include="Program.cs" />
