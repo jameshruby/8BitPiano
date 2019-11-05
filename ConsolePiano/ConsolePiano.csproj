@@ -47,14 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InstrumentalNote\AttackPhase.cs" />
-    <Compile Include="InstrumentalNote\DecayPhase.cs" />
     <Compile Include="InstrumentalNote\InstrumentNote.cs" />
+    <Compile Include="InstrumentalNote\NotePhases\AttackPhase.cs" />
+    <Compile Include="InstrumentalNote\NotePhases\DecayPhase.cs" />
+    <Compile Include="InstrumentalNote\NotePhases\EndState.cs" />
+    <Compile Include="InstrumentalNote\NotePhases\ReleasePhase.cs" />
+    <Compile Include="InstrumentalNote\NotePhases\SustainPhase.cs" />
     <Compile Include="InstrumentalNote\Phase.cs" />
-    <Compile Include="InstrumentalNote\ReleasePhase.cs" />
     <Compile Include="InstrumentalNote\StreamAudioBuilder.cs" />
-    <Compile Include="InstrumentalNote\SustainPhase.cs" />
-    <Compile Include="InstrumentalNote\EndState.cs" />
     <Compile Include="InstrumentalNote\TonePlayer.cs" />
     <Compile Include="IPianoKey.cs" />
     <Compile Include="MusicalTones.cs" />
