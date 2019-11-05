@@ -52,7 +52,7 @@ namespace ConsolePiano.InstrumentalNote
         private static int GetSampleSize(double Duration)
         {
             var sampleRate = 441.0;
-            return (int)(sampleRate * Duration);
+            return (int)(sampleRate * Duration / 10);
         }
 
         public MemoryStream GenerateTone(double Frequency)
