@@ -5,11 +5,11 @@ using System.Text;
 
 namespace ConsolePiano.InstrumentalNote
 {
-    class EndState : Phase
+    class EndPhase : Phase
     {
         private ReleasePhase releasePhase;
 
-        public EndState(ReleasePhase releasePhase)
+        public EndPhase(ReleasePhase releasePhase)
         {
             // TODO: Complete member initialization
             this.releasePhase = releasePhase;

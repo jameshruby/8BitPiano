@@ -35,7 +35,7 @@ namespace ConsolePiano.InstrumentalNote
             {
                 instrumentNote.ToNextNote(T);
 
-                if (instrumentNote.Phase is EndState)
+                if (instrumentNote.Phase is EndPhase)
                 {
                     var Sample = 0.0;
 

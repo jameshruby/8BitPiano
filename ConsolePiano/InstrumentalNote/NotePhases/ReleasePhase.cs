@@ -43,7 +43,7 @@ namespace ConsolePiano.InstrumentalNote
             }
             
             if (limit > upperLimit && actualSound <= 0)
-                instrument.Phase = new EndState(this);
+                instrument.Phase = new EndPhase(this);
         }
     }
 }
