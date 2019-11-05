@@ -24,7 +24,7 @@ namespace ConsolePiano.InstrumentalNote
         private void Initialize()
         {
             strength = 18000.0;
-            duration = 44980.0;
+            duration = 980.0;
 
             lowerlimit = 441.0; //Set State with prev. limit - need mechanism to ensure order of the phases
             upperLimit = 1421.0;

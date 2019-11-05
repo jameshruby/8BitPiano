@@ -22,7 +22,7 @@ namespace ConsolePiano.InstrumentalNote
         private void Initialize()
         {
             strength = 0.0;
-            duration = 1002205.0;
+            duration = 2205.0;
 
             lowerlimit = 1421.0;
             upperLimit = 3626.0;
