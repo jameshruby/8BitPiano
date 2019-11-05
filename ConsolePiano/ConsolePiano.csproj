@@ -50,7 +50,7 @@
     <Compile Include="InstrumentalNote\InstrumentNote.cs" />
     <Compile Include="InstrumentalNote\NotePhases\AttackPhase.cs" />
     <Compile Include="InstrumentalNote\NotePhases\DecayPhase.cs" />
-    <Compile Include="InstrumentalNote\NotePhases\EndState.cs" />
+    <Compile Include="InstrumentalNote\NotePhases\EndPhase.cs" />
     <Compile Include="InstrumentalNote\NotePhases\ReleasePhase.cs" />
     <Compile Include="InstrumentalNote\NotePhases\SustainPhase.cs" />
     <Compile Include="InstrumentalNote\Phase.cs" />
