@@ -7,10 +7,13 @@ namespace ConsolePiano.InstrumentalNote
 {
     class ReleasePhase : Phase
     {
-        protected override double Duration => 1470.0;
+        //protected override double Duration => (double)1 / 6;
+        public override double Duration => 1470.0;
         protected override double Lowerlimit => 3626.0;
         protected override double UpperLimit => 5831.0;
         protected override double Strength => 14000.0;
+
+        public ReleasePhase() { }
         public ReleasePhase(DefaultInstrumentNote defaultInstrumentNote)
         {
             this.defaultInstrumentNote = defaultInstrumentNote;

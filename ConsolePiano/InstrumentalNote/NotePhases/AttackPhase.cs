@@ -7,12 +7,16 @@ namespace ConsolePiano.InstrumentalNote
 {
     class AttackPhase : Phase
     {
-        protected override double Duration => 441.0;
+        //Changing duration from direct values to 0..1 range
+
+        //protected override double Duration => 0.472; //(double)1 / 2;
+        public override double Duration => 441.0;
         protected override double Strength => 32767.0;
         protected override double Lowerlimit => 0.0;
         protected override double UpperLimit => Duration;  //computed with samplesrate
-
-        public AttackPhase(DefaultInstrumentNote instrument)
+        // public AttackPhase(DefaultInstrumentNote instrument) : base(instrument) { }
+        public AttackPhase() {}
+        public AttackPhase(DefaultInstrumentNote instrument) 
         {
             this.defaultInstrumentNote = instrument;
         }
@@ -32,3 +36,4 @@ namespace ConsolePiano.InstrumentalNote
     }
 }
 
+//var realDecayDuration = realAttackDuration + PhaseDuration(DecayPhase.duration);

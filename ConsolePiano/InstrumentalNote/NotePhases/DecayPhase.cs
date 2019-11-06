@@ -7,10 +7,13 @@ namespace ConsolePiano.InstrumentalNote
 {
     class DecayPhase : Phase
     {
-        protected override double Duration => 980.0;
+        //protected override double Duration => (double)1 / 9;
+        public override double Duration => 980.0;
         protected override double Lowerlimit => 441.0; //Set State with prev. limit - need mechanism to ensure order of the phases
         protected override double UpperLimit => 1421.0;
         protected override double Strength => 18000.0;
+        
+        public DecayPhase() { }
         public DecayPhase(DefaultInstrumentNote defaultInstrumentNote)
         {
             this.defaultInstrumentNote = defaultInstrumentNote;

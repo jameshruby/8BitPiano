@@ -7,7 +7,7 @@ namespace ConsolePiano.InstrumentalNote
 {
     abstract class Phase
     {
-        abstract protected double Duration { get; }
+        abstract public double Duration { get; }
         abstract protected double Lowerlimit { get; }
         abstract protected double UpperLimit { get; }
         abstract protected double Strength { get; }

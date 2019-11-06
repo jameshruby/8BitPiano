@@ -10,21 +10,32 @@ namespace ConsolePiano.InstrumentalNote
         private double actualSound = 0.0;
         private Phase phase;
 
-        public AttackPhase AttackPhase { get; }
-        public DecayPhase DecayPhase { get; }
-        public SustainPhase SustainPhase { get; }
-        public ReleasePhase ReleasePhase { get; }
-        public EndPhase EndPhase { get; }
+        public double NoteDuration { get; private set; }
+
+        public Phase AttackPhase { get; }
+        public Phase DecayPhase { get; }
+        public Phase SustainPhase { get; }
+        public Phase ReleasePhase { get; }
+        public Phase EndPhase { get; }
 
         public DefaultInstrumentNote()
         {
-            AttackPhase = new AttackPhase(this);
-            DecayPhase = new DecayPhase(this);
-            SustainPhase = new SustainPhase(this);
-            ReleasePhase = new ReleasePhase(this);
-            EndPhase = new EndPhase(this);
+            AttackPhase = this.GetPhaseInstance<AttackPhase>();
+            DecayPhase = this.GetPhaseInstance<DecayPhase>();
+            SustainPhase = this.GetPhaseInstance<SustainPhase>();
+            ReleasePhase = this.GetPhaseInstance<ReleasePhase>();
+            EndPhase = this.GetPhaseInstance<EndPhase>();
 
             this.phase = AttackPhase;
+        }
+
+        public Phase GetPhaseInstance<T>() where T : Phase, new()
+        {
+            //Create instance and increment note duration
+            Phase phase = new T();
+            phase.Instrument = this;
+            NoteDuration += phase.Duration;
+            return phase;
         }
 
         public Phase Phase { get { return phase; } set { phase = value; } }
