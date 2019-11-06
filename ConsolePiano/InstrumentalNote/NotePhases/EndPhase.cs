@@ -7,13 +7,13 @@ namespace ConsolePiano.InstrumentalNote
 {
     class EndPhase : Phase
     {
-        private ReleasePhase releasePhase;
+        //private ReleasePhase releasePhase;
 
-        public EndPhase(ReleasePhase releasePhase)
+        public EndPhase(DefaultInstrumentNote defaultInstrumentNote)
         {
-            // TODO: Complete member initialization
-            this.releasePhase = releasePhase;
+            this.defaultInstrumentNote = defaultInstrumentNote;
         }
+
         public override void NextNote(int limit)
         {
             return;

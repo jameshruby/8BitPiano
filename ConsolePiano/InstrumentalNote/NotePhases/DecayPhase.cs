@@ -7,17 +7,9 @@ namespace ConsolePiano.InstrumentalNote
 {
     class DecayPhase : Phase
     {
-        public DecayPhase(Phase phase)
+        public DecayPhase(DefaultInstrumentNote defaultInstrumentNote)
         {
-            this.actualSound = phase.CurrentNote;
-            this.instrument = phase.Instrument;
-            Initialize();
-        }
-
-        public DecayPhase(double actualSound, DefaultInstrumentNote instrument)
-        {
-            this.actualSound = actualSound;
-            this.instrument = instrument;
+            this.defaultInstrumentNote = defaultInstrumentNote;
             Initialize();
         }
 
@@ -32,14 +24,14 @@ namespace ConsolePiano.InstrumentalNote
 
         public override void NextNote(int limit)
         {
-            actualSound -= strength / duration;
+            defaultInstrumentNote.CurrentNote -= strength / duration;
             StateChangeCheck(limit);
         }
 
         private void StateChangeCheck(int limit)
         {
             if (limit > upperLimit)
-                instrument.Phase = new SustainPhase(this);
+                defaultInstrumentNote.Phase = defaultInstrumentNote.SustainPhase;//new SustainPhase(this);
         }
     }
 }

@@ -7,17 +7,9 @@ namespace ConsolePiano.InstrumentalNote
 {
     class AttackPhase : Phase
     {
-        public AttackPhase(Phase phase)
+        public AttackPhase(DefaultInstrumentNote instrument)
         {
-            this.actualSound = phase.CurrentNote;
-            this.instrument = phase.Instrument;
-            Initialize();
-        }
-
-        public AttackPhase(double actualSound, DefaultInstrumentNote instrument)
-        {
-            this.actualSound = actualSound;
-            this.instrument = instrument;
+            this.defaultInstrumentNote = instrument;
             Initialize();
         }
 
@@ -32,7 +24,7 @@ namespace ConsolePiano.InstrumentalNote
 
         public override void NextNote(int limit)
         {
-            actualSound += strength / duration;
+            defaultInstrumentNote.CurrentNote += strength / duration;
             StateChangeCheck(limit);
         }
 
@@ -40,7 +32,7 @@ namespace ConsolePiano.InstrumentalNote
         {
             //the other thing is i should maybe realy use percentages for both - strenth and samples
             if (limit > upperLimit)
-                instrument.Phase = new DecayPhase(this);
+                defaultInstrumentNote.Phase = defaultInstrumentNote.DecayPhase;
         }
     }
 }

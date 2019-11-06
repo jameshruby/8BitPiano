@@ -7,7 +7,7 @@ namespace ConsolePiano.InstrumentalNote
 {
     abstract class Phase
     {
-        protected DefaultInstrumentNote instrument;
+        protected DefaultInstrumentNote defaultInstrumentNote;
         protected double actualSound;
 
         protected double duration;

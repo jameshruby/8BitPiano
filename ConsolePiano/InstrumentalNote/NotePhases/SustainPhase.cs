@@ -7,15 +7,9 @@ namespace ConsolePiano.InstrumentalNote
 {
     class SustainPhase : Phase
     {
-        public SustainPhase(Phase phase)
-            : this(phase.CurrentNote, phase.Instrument)
+        public SustainPhase(DefaultInstrumentNote defaultInstrumentNote)
         {
-        }
-
-        public SustainPhase(double actualSound, DefaultInstrumentNote instrument)
-        {
-            this.actualSound = actualSound;
-            this.instrument = instrument;
+            this.defaultInstrumentNote = defaultInstrumentNote;
             Initialize();
         }
 
@@ -30,14 +24,15 @@ namespace ConsolePiano.InstrumentalNote
 
         public override void NextNote(int limit)
         {
-            actualSound -= strength / duration;
+            defaultInstrumentNote.CurrentNote -= strength / duration;
             StateChangeCheck(limit);
         }
 
         private void StateChangeCheck(int limit)
         {
             if (limit > upperLimit)
-                instrument.Phase = new ReleasePhase(this);
+                defaultInstrumentNote.Phase = defaultInstrumentNote.ReleasePhase;// new ReleasePhase(this);
         }
     }
 }
+  
