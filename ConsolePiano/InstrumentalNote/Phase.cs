@@ -15,7 +15,7 @@ namespace ConsolePiano.InstrumentalNote
         protected double upperLimit;
         protected double strength;
 
-        public DefaultInstrumentNote Instrument { get { return instrument; } set { instrument = value; } }
+        public DefaultInstrumentNote Instrument { get { return defaultInstrumentNote; } set { defaultInstrumentNote = value; } }
         public double CurrentNote { get { return actualSound; } set { actualSound = value; } }
 
         public abstract void NextNote(int limit);
