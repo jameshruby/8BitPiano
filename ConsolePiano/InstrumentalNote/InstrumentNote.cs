@@ -10,6 +10,12 @@ namespace ConsolePiano.InstrumentalNote
         private double actualSound = 0.0;
         private Phase phase;
 
+        public AttackPhase AttackPhase { get; }
+        public DecayPhase DecayPhase { get; }
+        public SustainPhase SustainPhase { get; }
+        public ReleasePhase ReleasePhase { get; }
+        public EndPhase EndPhase { get; }
+
         public DefaultInstrumentNote()
         {
             AttackPhase = new AttackPhase(this);
