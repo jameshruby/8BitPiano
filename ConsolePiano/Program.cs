@@ -38,8 +38,8 @@ namespace ConsolePiano
             while (true)
             {
                 Console.Write("PianoConsole>: ");
-                userInput = Console.ReadLine();
-
+                userInput = "/play -keyboard";// Console.ReadLine();
+                //TODO overriding user input
                 if (userInput == "/play -alias")
                 {
                     while (true)
@@ -64,6 +64,47 @@ namespace ConsolePiano
                     }
                 }
 
+                if (userInput == "/play -test")
+                {
+                    Console.Write("Play-test:");
+                    while (true)
+                    {
+                        try
+                        {
+                            Console.Write("Play-test:");
+
+                            /*
+                                
+                                so, now, the      duration
+                                piano.PlayKey("C", 10)
+                                this method wraps pplay and then call stop
+                                //sleep 10
+                               
+                                piano.HoldKey("C");
+                                
+                                piano.ReleaseKey("C");
+                            */
+
+                            piano.PlayKey("C");
+                            piano.PlayKey("D");
+                            var delayWhileIstrumentPlayds = 500;
+                            System.Threading.Thread.Sleep(delayWhileIstrumentPlayds);
+                            piano.PlayKey("C");
+                          
+                            var delayWhileIstrumentPlays = 1000;
+                            System.Threading.Thread.Sleep(delayWhileIstrumentPlays);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+
+                    //piano.PlayKey("D");   
+                    //piano.PlayKey("C");
+                    //piano.PlayKey("D");
+
+                }
 
                 if (userInput == "/play -keyboard")
                 {
