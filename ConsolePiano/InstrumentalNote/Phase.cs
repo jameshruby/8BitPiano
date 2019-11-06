@@ -7,13 +7,13 @@ namespace ConsolePiano.InstrumentalNote
 {
     abstract class Phase
     {
+        abstract protected double Duration { get; }
+        abstract protected double Lowerlimit { get; }
+        abstract protected double UpperLimit { get; }
+        abstract protected double Strength { get; }
+
         protected DefaultInstrumentNote defaultInstrumentNote;
         protected double actualSound;
-
-        protected double duration;
-        protected double lowerlimit;
-        protected double upperLimit;
-        protected double strength;
 
         public DefaultInstrumentNote Instrument { get { return defaultInstrumentNote; } set { defaultInstrumentNote = value; } }
         public double CurrentNote { get { return actualSound; } set { actualSound = value; } }

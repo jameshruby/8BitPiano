@@ -7,30 +7,24 @@ namespace ConsolePiano.InstrumentalNote
 {
     class SustainPhase : Phase
     {
+        protected override double Duration => 2205.0;
+        protected override double Lowerlimit => 1421.0;
+        protected override double UpperLimit => 3626.0;
+        protected override double Strength => 0.0;
         public SustainPhase(DefaultInstrumentNote defaultInstrumentNote)
         {
             this.defaultInstrumentNote = defaultInstrumentNote;
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            strength = 0.0;
-            duration = 2205.0;
-
-            lowerlimit = 1421.0;
-            upperLimit = 3626.0;
         }
 
         public override void NextNote(int limit)
         {
-            defaultInstrumentNote.CurrentNote -= strength / duration;
+            defaultInstrumentNote.CurrentNote -= Strength / Duration;
             StateChangeCheck(limit);
         }
 
         private void StateChangeCheck(int limit)
         {
-            if (limit > upperLimit)
+            if (limit > UpperLimit)
                 defaultInstrumentNote.Phase = defaultInstrumentNote.ReleasePhase;// new ReleasePhase(this);
         }
     }

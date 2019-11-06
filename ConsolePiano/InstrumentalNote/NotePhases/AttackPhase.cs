@@ -7,31 +7,26 @@ namespace ConsolePiano.InstrumentalNote
 {
     class AttackPhase : Phase
     {
+        protected override double Duration => 441.0;
+        protected override double Strength => 32767.0;
+        protected override double Lowerlimit => 0.0;
+        protected override double UpperLimit => Duration;  //computed with samplesrate
+
         public AttackPhase(DefaultInstrumentNote instrument)
         {
             this.defaultInstrumentNote = instrument;
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            strength = 32767.0;
-            duration = 441.0;
-
-            lowerlimit = 0.0;
-            upperLimit = duration; //computed with samplesrate
         }
 
         public override void NextNote(int limit)
         {
-            defaultInstrumentNote.CurrentNote += strength / duration;
-            StateChangeCheck(limit);
+            defaultInstrumentNote.CurrentNote += Strength / Duration;
+             StateChangeCheck(limit);
         }
 
         private void StateChangeCheck(int limit)
         {
             //the other thing is i should maybe realy use percentages for both - strenth and samples
-            if (limit > upperLimit)
+            if (limit > UpperLimit)
                 defaultInstrumentNote.Phase = defaultInstrumentNote.DecayPhase;
         }
     }
