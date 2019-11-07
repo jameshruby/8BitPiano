@@ -26,7 +26,7 @@ namespace ConsolePiano.InstrumentalNote
 
         public override void NextNote(int limit)
         {
-            return;
+            defaultInstrumentNote.CurrentNote = 0;
         }
     }
 }

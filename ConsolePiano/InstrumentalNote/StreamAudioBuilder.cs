@@ -8,7 +8,7 @@ namespace ConsolePiano.InstrumentalNote
     {
         private MemoryStream memoryStream;
         private List<double> preparedInstrumentADSRTone = new List<double>();
-      
+
         public StreamAudioBuilder(int toneDuration)
         {
             var samplesSize = GetSampleSize(toneDuration);
@@ -24,9 +24,9 @@ namespace ConsolePiano.InstrumentalNote
         //     -          ------ 
         //   -                   -
         // -                       - 
-         /// </summary>
+        /// </summary>
         /// <param name="frequency"></param>
-        
+
         private void WriteADSRPhaseToStream(int samplesSize)
         {
             //TODO FIX StreamAudioBuilder => InstrumentNote rel + depenednecies
@@ -35,17 +35,7 @@ namespace ConsolePiano.InstrumentalNote
             for (int T = 0; T < samplesSize; T++)
             {
                 instrumentNote.ToNextNote(T);
-
-                if (instrumentNote.Phase is EndPhase)
-                {
-                    var Sample = 0.0;
-                    this.preparedInstrumentADSRTone.Add(Sample);
-                }
-                else
-                {
-                    var Sample = instrumentNote.CurrentNote;
-                    this.preparedInstrumentADSRTone.Add(Sample);
-                }
+                this.preparedInstrumentADSRTone.Add(instrumentNote.CurrentNote);
             }
         }
 
@@ -69,6 +59,7 @@ namespace ConsolePiano.InstrumentalNote
 
             File.Delete("debug.txt");
             using (StreamWriter streamwriter = new StreamWriter("debug.txt", true, System.Text.Encoding.UTF8))
+
             {
                 for (int T = 0; T < this.preparedInstrumentADSRTone.Count; T++)
                 {
