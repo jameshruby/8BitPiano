@@ -8,13 +8,17 @@ namespace ConsolePiano.InstrumentalNote
     class EndPhase : Phase
     {
         public override double Duration => 0.0;
-        protected override double Lowerlimit => 0.0;
-        protected override double UpperLimit => 0.0;
+
         protected override double Strength => 0.0;
+
+        public override double Lowerlimit { get; set; }
+        public override double UpperLimit { get; set; }
 
         //private ReleasePhase releasePhase;
 
-        public EndPhase() { }
+        public EndPhase()
+        {
+        }
         public EndPhase(DefaultInstrumentNote defaultInstrumentNote)
         {
             this.defaultInstrumentNote = defaultInstrumentNote;

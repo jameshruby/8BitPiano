@@ -30,7 +30,23 @@ namespace ConsolePiano
 
             piano.GetDefaultKeyboardShorcuts();
 
-            RunConsole(piano);
+            piano.PlayKey("C");
+
+            //Testing code
+            //string path1 = "lastTone.wav";
+            //string path2 = "lastTone - Copy.wav";
+            //string path3 = "lastTone_releasePhase5096.wav";
+            //string path4 = "tone.wav";
+            //if (!System.IO.File.ReadAllBytes(path1).SequenceEqual(System.IO.File.ReadAllBytes(path2)) && 
+            //    !System.IO.File.ReadAllBytes(path1).SequenceEqual(System.IO.File.ReadAllBytes(path3)) &&
+            //    !System.IO.File.ReadAllBytes(path1).SequenceEqual(System.IO.File.ReadAllBytes(path4))
+            //   )
+            //{
+            //    throw new Exception("Files no match");
+            //}
+           
+
+            //RunConsole(piano);
         }
 
         private static void RunConsole(Piano piano)
@@ -38,7 +54,7 @@ namespace ConsolePiano
             while (true)
             {
                 Console.Write("PianoConsole>: ");
-                userInput = "/play -keyboard";// Console.ReadLine();
+                userInput = "/play -test";// Console.ReadLine();
                 //TODO overriding user input
                 if (userInput == "/play -alias")
                 {
@@ -86,13 +102,13 @@ namespace ConsolePiano
                             */
 
                             piano.PlayKey("C");
-                            piano.PlayKey("D");
-                            var delayWhileIstrumentPlayds = 500;
-                            System.Threading.Thread.Sleep(delayWhileIstrumentPlayds);
-                            piano.PlayKey("C");
+                            //piano.PlayKey("D");
+                            //var delayWhileIstrumentPlayds = 500;
+                            //System.Threading.Thread.Sleep(delayWhileIstrumentPlayds);
+                            //piano.PlayKey("C");
                           
-                            var delayWhileIstrumentPlays = 1000;
-                            System.Threading.Thread.Sleep(delayWhileIstrumentPlays);
+                            //var delayWhileIstrumentPlays = 1000;
+                            //System.Threading.Thread.Sleep(delayWhileIstrumentPlays);
                         }
                         catch (Exception ex)
                         {

@@ -29,7 +29,8 @@ namespace ConsolePiano.InstrumentalNote
         
         private void WriteADSRPhaseToStream(int samplesSize)
         {
-            var instrumentNote = new DefaultInstrumentNote();
+            //TODO FIX StreamAudioBuilder => InstrumentNote rel + depenednecies
+            var instrumentNote = new DefaultInstrumentNote(samplesSize);
 
             for (int T = 0; T < samplesSize; T++)
             {
@@ -38,7 +39,6 @@ namespace ConsolePiano.InstrumentalNote
                 if (instrumentNote.Phase is EndPhase)
                 {
                     var Sample = 0.0;
-
                     this.preparedInstrumentADSRTone.Add(Sample);
                 }
                 else
@@ -52,11 +52,11 @@ namespace ConsolePiano.InstrumentalNote
         private static int GetSampleSize(double Duration)
         {
             var sampleRate = 441.0;
-            return (int)(sampleRate * Duration / 10);
+            return (int)(sampleRate * Duration / 10.0);
         }
 
         public MemoryStream GenerateTone(double Frequency)
-          {
+        {
             int Bytes = GetBytesForHeader(this.preparedInstrumentADSRTone.Count);
             int[] headerWav = GetWavHeader(Bytes);
             this.memoryStream = CreateStream(Bytes);
@@ -67,26 +67,35 @@ namespace ConsolePiano.InstrumentalNote
 
             double deltaFT = GetDeltaFT(Frequency);
 
-            for (int T = 0; T < this.preparedInstrumentADSRTone.Count; T++)
+            File.Delete("debug.txt");
+            using (StreamWriter streamwriter = new StreamWriter("debug.txt", true, System.Text.Encoding.UTF8))
             {
-                var freqTime = Math.Sin(deltaFT * T);
-                var finalNote = freqTime * this.preparedInstrumentADSRTone[T];
-                WriteActualToneToWriter(System.Convert.ToInt16(finalNote), BW);
+                for (int T = 0; T < this.preparedInstrumentADSRTone.Count; T++)
+                {
+                    streamwriter.WriteLine(this.preparedInstrumentADSRTone[T].ToString());
+                    var freqTime = Math.Sin(deltaFT * T);
+                    var finalNote = freqTime * this.preparedInstrumentADSRTone[T];
+                    Int16 convertedNote;
+                    try { convertedNote = System.Convert.ToInt16(finalNote); }
+                    catch (OverflowException ex) { throw new Exception("Note value out of range( " + finalNote + " )", ex); }
+                    WriteActualToneToWriter(convertedNote, BW);
+                }
             }
-
             BW.Flush();
-        
+
             SetStreamToTheBegining(this.memoryStream);
+
+            System.IO.File.WriteAllBytes("lastTone.wav", this.memoryStream.ToArray());
 #if Debug
-		  System.IO.File.WriteAllBytes("lastTone.wav", MS.ToArray());
+		  //System.IO.File.WriteAllBytes("lastTone.wav", MS.ToArray());
 #endif
             return this.memoryStream;
         }
 
-          private MemoryStream CreateStream(int Bytes)
-          {
-              return new MemoryStream(44 + Bytes);
-          }
+        private MemoryStream CreateStream(int Bytes)
+        {
+            return new MemoryStream(44 + Bytes);
+        }
 
         private static int[] GetWavHeader(int Bytes)
         {

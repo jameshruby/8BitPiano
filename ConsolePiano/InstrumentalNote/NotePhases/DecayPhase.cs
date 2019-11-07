@@ -7,13 +7,15 @@ namespace ConsolePiano.InstrumentalNote
 {
     class DecayPhase : Phase
     {
-        //protected override double Duration => (double)1 / 9;
-        public override double Duration => 980.0;
-        protected override double Lowerlimit => 441.0; //Set State with prev. limit - need mechanism to ensure order of the phases
-        protected override double UpperLimit => 1421.0;
-        protected override double Strength => 18000.0;
-        
-        public DecayPhase() { }
+        public override double Duration => (double)1 / 9; //980.0 (double)1 / 9
+
+        //Set State with prev. limit - need mechanism to ensure order of the phases
+        public override double Lowerlimit { get; set; } //441.0;
+        public override double UpperLimit { get; set; } //1421.0;
+
+        protected override double Strength => 14767; //14767 //18000.0
+
+        public DecayPhase() {}
         public DecayPhase(DefaultInstrumentNote defaultInstrumentNote)
         {
             this.defaultInstrumentNote = defaultInstrumentNote;
@@ -21,14 +23,19 @@ namespace ConsolePiano.InstrumentalNote
 
         public override void NextNote(int limit)
         {
-            defaultInstrumentNote.CurrentNote -= Strength / Duration;
+            defaultInstrumentNote.CurrentNote -= Strength / DurationSampled;
             StateChangeCheck(limit);
         }
 
         private void StateChangeCheck(int limit)
         {
-            if (limit > UpperLimit)
+            if (limit+2 >= UpperLimit) //TODO FIX subobt. relies on the loop be
+            {
                 defaultInstrumentNote.Phase = defaultInstrumentNote.SustainPhase;//new SustainPhase(this);
+
+                defaultInstrumentNote.Phase.Lowerlimit = UpperLimit;
+                defaultInstrumentNote.Phase.UpperLimit += UpperLimit;
+            }
         }
     }
 }

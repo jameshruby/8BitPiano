@@ -82,7 +82,7 @@ namespace Bit8Piano
             WriteToneToStream(Frequency, this.memoryStream);
             SetStreamToTheBegining(this.memoryStream);
 
-            //System.IO.File.WriteAllBytes("tone.wav", memoryStream.ToArray());
+            System.IO.File.WriteAllBytes("tone.wav", memoryStream.ToArray());
 
             // Create a Waveprovider,in this case a Stream called WaveStream 
             var waveStream = new WaveFileReader(this.memoryStream);
@@ -159,34 +159,41 @@ namespace Bit8Piano
             var realAttackDuration = PhaseDuration(AttackPhase.duration);
             var realDecayDuration = realAttackDuration + PhaseDuration(DecayPhase.duration);
             var realSustainDuration = realDecayDuration + PhaseDuration(SustainPhase.duration);
-            var realReleaseDuration = realSustainDuration + PhaseDuration(SustainPhase.duration);
+            var realReleaseDuration = realSustainDuration + PhaseDuration(ReleasePhase.duration);
 
             for (int T = 0; T < Samples; T++)
+            File.Delete("debug.txt");
+            using (StreamWriter streamwriter = new StreamWriter("debug.txt", true, Encoding.UTF8))
             {
-                if (T < realAttackDuration)
+                for (int T = 0; T < Samples; T++)
                 {
-                    minSound += AttackPhase.strength / PhaseDuration(AttackPhase.duration);
-                }
-                                                            //upperLimit
-                else if (T > realAttackDuration && T < realDecayDuration)
-                {
-                    minSound += -(AttackPhase.strength - DecayPhase.strength) / PhaseDuration((double)DecayPhase.duration);
-                }
+                    if (T < realAttackDuration)
+                    {
+                        minSound += AttackPhase.strength / PhaseDuration(AttackPhase.duration);
+                    }
+                    //upperLimit
+                    else if (T > realAttackDuration && T < realDecayDuration)
+                    {
+                        minSound += -(AttackPhase.strength - DecayPhase.strength) / PhaseDuration((double)DecayPhase.duration);
+                    }
 
-                else if (T > realDecayDuration && T < realSustainDuration)
-                {
-                    minSound += -(DecayPhase.strength - SustainPhase.strength) / PhaseDuration((double)SustainPhase.duration);
-                }
+                    else if (T > realDecayDuration && T < realSustainDuration)
+                    {
+                        minSound += -(DecayPhase.strength - SustainPhase.strength) / PhaseDuration((double)SustainPhase.duration);
+                    }
 
-                else if (T > realSustainDuration && T < realReleaseDuration && minSound > 0)
-                {
-                    minSound += -(SustainPhase.strength - ReleasePhase.strength) / PhaseDuration((double)ReleasePhase.duration);
-                }
+                    else if (T > realSustainDuration && T < realReleaseDuration && minSound > 0)
+                    {
+                        minSound += -(SustainPhase.strength - ReleasePhase.strength) / PhaseDuration((double)ReleasePhase.duration);
+                    }
 
-                var Sample = GetFinalSamples(minSound, this.deltaFT, T);
-                WriteActualToneToWriter(Sample);
+                    // File.AppendAllText("debug.txt", minSound.ToString() + Environment.NewLine);
+                    streamwriter.WriteLine(minSound.ToString());
+
+                    var Sample = GetFinalSamples(minSound, this.deltaFT, T);
+                    WriteActualToneToWriter(Sample);
+                }
             }
-
             BW.Flush();
         }
         private void WriteActualToneToWriter(short Sample)
