@@ -24,11 +24,10 @@ namespace ConsolePiano.InstrumentalNote
             //TODO FIX subobt. relies on the loop be
             return limit + 1 >= UpperLimit;
         }
+
         protected override void SetPhase()
         {
             defaultInstrumentNote.Phase = defaultInstrumentNote.DecayPhase;
-            defaultInstrumentNote.Phase.Lowerlimit = UpperLimit;
-            defaultInstrumentNote.Phase.UpperLimit += DurationSampled;
         }
     }
 }

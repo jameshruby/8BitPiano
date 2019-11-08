@@ -27,9 +27,6 @@ namespace ConsolePiano.InstrumentalNote
         protected override void SetPhase()
         {
             defaultInstrumentNote.Phase = defaultInstrumentNote.ReleasePhase;// new ReleasePhase(this);
-
-            defaultInstrumentNote.Phase.Lowerlimit = UpperLimit;
-            defaultInstrumentNote.Phase.UpperLimit += UpperLimit;
         }
     }
 }

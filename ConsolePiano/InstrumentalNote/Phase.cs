@@ -25,7 +25,10 @@ namespace ConsolePiano.InstrumentalNote
         {
             SetNote();
             if (IsNextPhase(limit))
+            {
                 SetPhase();
+                SetNextPhasePoperties();
+            }
         }
         virtual protected void SetNote()
         {
@@ -33,5 +36,10 @@ namespace ConsolePiano.InstrumentalNote
         }
         protected abstract bool IsNextPhase(int limit);
         protected abstract void SetPhase();
+        virtual protected void SetNextPhasePoperties()
+        {
+            defaultInstrumentNote.Phase.Lowerlimit = this.UpperLimit;
+            defaultInstrumentNote.Phase.UpperLimit += this.UpperLimit;
+        }
     }
 }
