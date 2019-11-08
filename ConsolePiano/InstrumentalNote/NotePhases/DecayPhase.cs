@@ -13,29 +13,23 @@ namespace ConsolePiano.InstrumentalNote
         public override double Lowerlimit { get; set; } //441.0;
         public override double UpperLimit { get; set; } //1421.0;
 
-        protected override double Strength => 14767; //14767 //18000.0
+        protected override double Strength => -14767; //14767 //18000.0
 
-        public DecayPhase() {}
+        public DecayPhase() { }
         public DecayPhase(DefaultInstrumentNote defaultInstrumentNote)
         {
             this.defaultInstrumentNote = defaultInstrumentNote;
         }
-
-        public override void NextNote(int limit)
+        protected override bool IsNextPhase(int limit)
         {
-            defaultInstrumentNote.CurrentNote -= Strength / DurationSampled;
-            StateChangeCheck(limit);
+            //TODO FIX subobt. relies on the loop be
+            return limit + 2 >= UpperLimit;
         }
-
-        private void StateChangeCheck(int limit)
+        protected override void SetPhase()
         {
-            if (limit+2 >= UpperLimit) //TODO FIX subobt. relies on the loop be
-            {
-                defaultInstrumentNote.Phase = defaultInstrumentNote.SustainPhase;//new SustainPhase(this);
-
-                defaultInstrumentNote.Phase.Lowerlimit = UpperLimit;
-                defaultInstrumentNote.Phase.UpperLimit += UpperLimit;
-            }
+            defaultInstrumentNote.Phase = defaultInstrumentNote.SustainPhase;//new SustainPhase(this);
+            defaultInstrumentNote.Phase.Lowerlimit = UpperLimit;
+            defaultInstrumentNote.Phase.UpperLimit += UpperLimit;
         }
     }
 }

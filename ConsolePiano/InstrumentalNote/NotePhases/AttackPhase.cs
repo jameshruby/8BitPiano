@@ -12,29 +12,23 @@ namespace ConsolePiano.InstrumentalNote
         public override double Lowerlimit { get; set; } //UpperLimit => Duration
         public override double UpperLimit { get; set; }
 
-        public AttackPhase() {}
+        public AttackPhase() { }
         public AttackPhase(DefaultInstrumentNote instrument)
         {
             this.defaultInstrumentNote = instrument;
         }
 
-        public override void NextNote(int limit)
-        {
-            defaultInstrumentNote.CurrentNote += Strength / this.DurationSampled;
-            StateChangeCheck(limit);
-        }
-
-        private void StateChangeCheck(int limit)
+        protected override bool IsNextPhase(int limit)
         {
             //the other thing is i should maybe realy use percentages for both - strenth and samples
-            if (limit+1 >= UpperLimit)  //TODO FIX subobt. relies on the loop be
-            {
-                defaultInstrumentNote.Phase = defaultInstrumentNote.DecayPhase;
-                //flip the table
-                //this means that we dont have actual values befoe we start to loop the sequencer :(
-                defaultInstrumentNote.Phase.Lowerlimit = UpperLimit;
-                defaultInstrumentNote.Phase.UpperLimit += DurationSampled;
-            }
+            //TODO FIX subobt. relies on the loop be
+            return limit + 1 >= UpperLimit;
+        }
+        protected override void SetPhase()
+        {
+            defaultInstrumentNote.Phase = defaultInstrumentNote.DecayPhase;
+            defaultInstrumentNote.Phase.Lowerlimit = UpperLimit;
+            defaultInstrumentNote.Phase.UpperLimit += DurationSampled;
         }
     }
 }

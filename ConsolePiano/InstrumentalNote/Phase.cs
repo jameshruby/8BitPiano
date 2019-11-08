@@ -21,7 +21,17 @@ namespace ConsolePiano.InstrumentalNote
 
         public double DurationSampled { get; internal set; }
 
-        public abstract void NextNote(int limit);
-
+        virtual public void NextNote(int limit)
+        {
+            SetNote();
+            if (IsNextPhase(limit))
+                SetPhase();
+        }
+        virtual protected void SetNote()
+        {
+            defaultInstrumentNote.CurrentNote += this.Strength / this.DurationSampled;
+        }
+        protected abstract bool IsNextPhase(int limit);
+        protected abstract void SetPhase();
     }
 }

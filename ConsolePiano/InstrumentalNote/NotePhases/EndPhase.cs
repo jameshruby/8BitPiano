@@ -28,5 +28,15 @@ namespace ConsolePiano.InstrumentalNote
         {
             defaultInstrumentNote.CurrentNote = 0;
         }
+        //TODO get rid of this
+        protected override bool IsNextPhase(int limit)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SetPhase()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
