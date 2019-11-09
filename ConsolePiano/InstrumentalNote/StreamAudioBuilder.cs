@@ -50,11 +50,7 @@ namespace ConsolePiano.InstrumentalNote
                 for (int T = 0; T < preparedTone.Count; T++)
                 {
                     streamwriter.WriteLine(preparedTone[T].ToString());
-                    var freqTime = Math.Sin(deltaFT * T);
-                    var finalNote = freqTime * preparedTone[T];
-                    Int16 convertedNote;
-                    try { convertedNote = System.Convert.ToInt16(finalNote); }
-                    catch (OverflowException ex) { throw new Exception("Note value out of range( " + finalNote + " )", ex); }
+                    Int16 convertedNote = GetFinalSamples(preparedTone[T], deltaFT, T);
                     WriteActualToneToWriter(convertedNote, BW);
                 }
             }
@@ -119,7 +115,9 @@ namespace ConsolePiano.InstrumentalNote
         {
             var freqTime = Math.Sin(deltaFT * T);
             var totalnote = amplitude * freqTime;
-
+            Int16 convertedNote;
+            try { convertedNote = System.Convert.ToInt16(totalnote); }
+            catch (OverflowException ex) { throw new Exception("Note value out of range( " + totalnote + " )", ex); }
             return System.Convert.ToInt16(totalnote);
         }
     }
