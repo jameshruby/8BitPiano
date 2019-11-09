@@ -6,14 +6,14 @@ namespace ConsolePiano.InstrumentalNote
 {
     public class StreamAudioBuilder
     {
-        private MemoryStream memoryStream;
-        private List<double> preparedInstrumentADSRTone = new List<double>();
-
-        public StreamAudioBuilder(int toneDuration)
+        //only Singleton so far
+        private static StreamAudioBuilder streamAudioBuilderSingleton;
+        public static StreamAudioBuilder GetInstance()
         {
-            var samplesSize = GetSampleSize(toneDuration);
-            WriteADSRPhaseToStream(samplesSize);
+            return streamAudioBuilderSingleton ?? (streamAudioBuilderSingleton = new StreamAudioBuilder());
         }
+        private StreamAudioBuilder() {}
+
         /// <summary>
         /// Scheme : //values var is equivalent to Samples
         // attack   decay sustain  release
@@ -26,46 +26,32 @@ namespace ConsolePiano.InstrumentalNote
         // -                       - 
         /// </summary>
         /// <param name="frequency"></param>
-
-        private void WriteADSRPhaseToStream(int samplesSize)
-        {
-            //TODO FIX StreamAudioBuilder => InstrumentNote rel + depenednecies
-            var instrumentNote = new DefaultInstrumentNote(samplesSize);
-
-            for (int T = 0; T < samplesSize; T++)
-            {
-                instrumentNote.ToNextNote(T);
-                this.preparedInstrumentADSRTone.Add(instrumentNote.CurrentNote);
-            }
-        }
-
-        private static int GetSampleSize(double Duration)
+        public int GetSampleSize(double Duration)
         {
             var sampleRate = 441.0;
             return (int)(sampleRate * Duration / 10.0);
         }
 
-        public MemoryStream GenerateTone(double Frequency)
+        public MemoryStream GenerateTone(List<double> preparedTone, double frequency)
         {
-            int Bytes = GetBytesForHeader(this.preparedInstrumentADSRTone.Count);
+            int Bytes = GetBytesForHeader(preparedTone.Count);
             int[] headerWav = GetWavHeader(Bytes);
-            this.memoryStream = CreateStream(Bytes);
+            MemoryStream memoryStream = CreateStream(Bytes);
 
-            BinaryWriter BW = new BinaryWriter(this.memoryStream);
+            BinaryWriter BW = new BinaryWriter(memoryStream);
 
             WriteWavHead(headerWav, BW);
 
-            double deltaFT = GetDeltaFT(Frequency);
+            double deltaFT = GetDeltaFT(frequency);
 
             File.Delete("debug.txt");
             using (StreamWriter streamwriter = new StreamWriter("debug.txt", true, System.Text.Encoding.UTF8))
-
             {
-                for (int T = 0; T < this.preparedInstrumentADSRTone.Count; T++)
+                for (int T = 0; T < preparedTone.Count; T++)
                 {
-                    streamwriter.WriteLine(this.preparedInstrumentADSRTone[T].ToString());
+                    streamwriter.WriteLine(preparedTone[T].ToString());
                     var freqTime = Math.Sin(deltaFT * T);
-                    var finalNote = freqTime * this.preparedInstrumentADSRTone[T];
+                    var finalNote = freqTime * preparedTone[T];
                     Int16 convertedNote;
                     try { convertedNote = System.Convert.ToInt16(finalNote); }
                     catch (OverflowException ex) { throw new Exception("Note value out of range( " + finalNote + " )", ex); }
@@ -74,13 +60,13 @@ namespace ConsolePiano.InstrumentalNote
             }
             BW.Flush();
 
-            SetStreamToTheBegining(this.memoryStream);
+            SetStreamToTheBegining(memoryStream);
 
-            System.IO.File.WriteAllBytes("lastTone.wav", this.memoryStream.ToArray());
+            System.IO.File.WriteAllBytes("lastTone.wav", memoryStream.ToArray());
 #if Debug
 		  //System.IO.File.WriteAllBytes("lastTone.wav", MS.ToArray());
 #endif
-            return this.memoryStream;
+            return memoryStream;
         }
 
         private MemoryStream CreateStream(int Bytes)
@@ -93,7 +79,7 @@ namespace ConsolePiano.InstrumentalNote
             int[] headerWav = { 0X46464952, 36 + Bytes, 0X45564157, 0X20746D66, 16, 0X20001, 44100, 176400, 0X100004, 0X61746164, Bytes };
             return headerWav;
         }
-
+        
         private static int GetBytesForHeader(int samplesSize)
         {
             int Bytes = samplesSize * sizeof(int);

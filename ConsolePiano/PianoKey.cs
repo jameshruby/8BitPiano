@@ -36,16 +36,17 @@ namespace ConsolePiano
             this.alias = alias;
         }
 
-        public void Play(StreamAudioBuilder i)
+        public void Play(DefaultInstrumentNote instrumentNote)
         {
-            var tone = i.GenerateTone((double)this.tone);
+            //this tone => this.frequency
+            //this could be passed from piano too, or be saved for each piano key ?!
+            StreamAudioBuilder streamAudioBuilder = StreamAudioBuilder.GetInstance();
+            System.IO.MemoryStream tone = streamAudioBuilder.GenerateTone(instrumentNote.PreparedTone, (double)this.tone);
             TonePlayer.Play(tone);
 
             Console.WriteLine("The key {0} sounds", this.tone);
-
             var delayWhileIstrumentPlays = 202;
             System.Threading.Thread.Sleep(delayWhileIstrumentPlays);
         }
-
     }
 }

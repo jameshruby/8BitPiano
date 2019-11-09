@@ -12,7 +12,7 @@ namespace ConsolePiano
         private List<IPianoKey> keyboard = new List<IPianoKey>();
         private Dictionary<string, Keys> keyboardHotkeys = new Dictionary<string, Keys>();
 
-        private StreamAudioBuilder instrumentNote;
+        private DefaultInstrumentNote instrumentNote;
 
 
         public List<IPianoKey> GetKeys { get { return keyboard; } }
@@ -23,7 +23,7 @@ namespace ConsolePiano
             //speciic frequency of given note of played key
 
             //TODO I should be able to compute duration from the actual ADSR phases
-            instrumentNote = new StreamAudioBuilder(200);
+            instrumentNote = new DefaultInstrumentNote(200);
         }
 
         public void GetDefaultKeyboardShorcuts()

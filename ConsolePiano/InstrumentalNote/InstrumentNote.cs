@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsolePiano.InstrumentalNote
 {
-    class DefaultInstrumentNote
+    public class DefaultInstrumentNote //TODO fix accessibility + rename to InstrumentEnvelope?!
     {
         private double actualSound = 0.0;
         private Phase phase;
@@ -19,15 +19,17 @@ namespace ConsolePiano.InstrumentalNote
         public Phase ReleasePhase { get; }
         public Phase EndPhase { get; }
 
-        public DefaultInstrumentNote()
-        {
-            
-        }
+        public List<double> PreparedTone { get => preparedTone; set => preparedTone = value; }
 
-        public DefaultInstrumentNote(int samplesSize)
+        //private List<double> preparedInstrumentADSRTone = new List<double>();
+        private List<double> preparedTone;
+
+        public DefaultInstrumentNote(int toneDuration)
         {
-            //samplesize already calculated from duration !?
-            this.SampleSize = samplesSize;
+            preparedTone = new List<double>();
+            //   var instrumentNote = new DefaultInstrumentNote(samplesSize);
+            StreamAudioBuilder streamAudioBuilder = StreamAudioBuilder.GetInstance();
+            this.SampleSize = streamAudioBuilder.GetSampleSize(toneDuration);
 
             AttackPhase = this.GetPhaseInstance<AttackPhase>();
             DecayPhase = this.GetPhaseInstance<DecayPhase>();
@@ -36,6 +38,18 @@ namespace ConsolePiano.InstrumentalNote
             EndPhase = this.GetPhaseInstance<EndPhase>();
 
             this.phase = AttackPhase;
+
+            WriteADSRPhaseToStream(this.SampleSize);
+        }
+
+        private void WriteADSRPhaseToStream(int samplesSize)
+        {
+            //TODO FIX StreamAudioBuilder => InstrumentNote rel + depenednecies
+            for (int T = 0; T < samplesSize; T++)
+            {
+                ToNextNote(T);
+                this.PreparedTone.Add(CurrentNote);
+            }
         }
 
         public Phase GetPhaseInstance<T>() where T : Phase, new()

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ConsolePiano.InstrumentalNote
 {
-    abstract class Phase
+    abstract public class Phase //TODO fix accessibility
     {
         abstract public double Duration { get; }
         abstract protected double Strength { get; }

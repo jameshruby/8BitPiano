@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsolePiano.InstrumentalNote;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,6 @@ namespace ConsolePiano
         MusicalTone Tone { get; set; }
         string Alias { get; set; }
 
-        void Play(ConsolePiano.InstrumentalNote.StreamAudioBuilder i);
+        void Play(DefaultInstrumentNote instrumentNote);
     }
 }
